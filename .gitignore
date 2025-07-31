@@ -1,3 +1,14 @@
+# =============================================================================
+# CURSED GITIGNORE - BANISHING FILES FROM THE REPOSITORY REALM
+# =============================================================================
+
+# Claude Code artifacts
+.claude/
+
+# Project-specific cursed binaries
+cursed_spawn
+a.out
+
 # Prerequisites
 *.d
 
@@ -51,5 +62,169 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# debug information files
+# Debug information files
 *.dwo
+
+# =============================================================================
+# CROSS-PLATFORM OS DEMONS
+# =============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =============================================================================
+# BUILD ARTIFACTS AND TEMPORARY FILES
+# =============================================================================
+
+# Build directories
+build/
+dist/
+*.build/
+
+# Coverage files
+*.gcov
+*.gcda
+*.gcno
+coverage.info
+coverage/
+
+# Profiling
+gmon.out
+*.prof
+
+# Core dumps
+core
+core.*
+vgcore.*
+
+# Valgrind
+*.memcheck
+*.helgrind
+*.cachegrind
+*.massif
+
+# Static analysis
+cppcheck_report.xml
+scan-build/
+
+# =============================================================================
+# EDITOR AND IDE ARTIFACTS
+# =============================================================================
+
+# Vim
+*.swp
+*.swo
+*~
+.vimrc.local
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# CLion
+.idea/
+cmake-build-*/
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# =============================================================================
+# DEVELOPMENT TOOLS
+# =============================================================================
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile.cmake
+*.cmake
+
+# Autotools
+/autom4te.cache
+/aclocal.m4
+/compile
+/configure
+/depcomp
+/install-sh
+/missing
+/stamp-h1
+config.h
+config.h.in
+config.log
+config.status
+
+# pkg-config
+*.pc
+
+# =============================================================================
+# MISC DEVELOPMENT ARTIFACTS
+# =============================================================================
+
+# Logs
+*.log
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.rej
+
+# Archives
+*.tar
+*.tar.*
+*.zip
+*.rar
+*.7z
+
+# Python (if any build scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Node.js (if any build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
