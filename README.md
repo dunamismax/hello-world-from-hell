@@ -1,4 +1,6 @@
-# 🔥 Hello World From Hell 🔥
+<p align="center">
+  <img src="https://github.com/dunamismax/images/blob/main/c/hello-world-from-hell.png" alt="Hello World From Hell PNG" width="400" />
+</p>
 
 _The most cursed, unholy, and beautifully twisted Hello World program ever written in C_
 
@@ -8,16 +10,16 @@ _The most cursed, unholy, and beautifully twisted Hello World program ever writt
 
 ---
 
-## 🌚 What Fresh Hell Is This?
+## What Fresh Hell Is This?
 
 Behold, mortal programmer! Within this repository lies the ultimate abomination — a Hello World program that would make Cthulhu himself weep tears of admiration. This is not just code; it's a digital séance that summons "Hello World!" through **seven different dimensions of cursed C sorcery**.
 
-## ⚡ Features From The Abyss
+## Features From The Abyss
 
-- **🔮 Trigraph Nightmare**: Extensive use of `??<` `??>` `??!` because normal brackets are for the weak
-- **🎭 Macro Sorcery**: 25+ macros with names like `CHAOS`, `CURSE`, `RITUAL`, `SUMMON`, `PHANTOM`
-- **🌪️ Duff's Device**: Loop unrolling so cursed it makes compilers question their existence
-- **👻 Seven Hellish Methods**: Each run randomly selects how to torment your terminal:
+- **Trigraph Nightmare**: Extensive use of `??<` `??>` `??!` because normal brackets are for the weak
+- **Macro Sorcery**: 25+ macros with names like `CHAOS`, `CURSE`, `RITUAL`, `SUMMON`, `PHANTOM`
+- **Duff's Device**: Loop unrolling so cursed it makes compilers question their existence
+- **Seven Hellish Methods**: Each run randomly selects how to torment your terminal:
 
   - Dimensional shift with union bit manipulation
   - Fibonacci sequence obfuscation
@@ -27,10 +29,10 @@ Behold, mortal programmer! Within this repository lies the ultimate abomination 
   - Pointer arithmetic insanity
   - Macro expansion hell
 
-- **🔥 Portable Darkness**: Compiles on x86_64, ARM64, and probably your smart toaster
-- **⚡ Modern Cursed**: Uses constructor/destructor attributes, volatile souls, and cosmic horror
+- **Portable Darkness**: Compiles on x86_64, ARM64, and probably your smart toaster
+- **Modern Cursed**: Uses constructor/destructor attributes, volatile souls, and cosmic horror
 
-## 🚀 Summoning Instructions
+## Summoning Instructions
 
 ```bash
 git clone https://github.com/dunamismax/hello-world-from-hell.git
@@ -41,7 +43,7 @@ make
 
 **Expected Output**: `Hello World!` (or variations like `H}elljo BWhorld*!` depending on which circle of hell you're visiting)
 
-## 🎪 Why Does This Exist?
+## Why Does This Exist?
 
 Because someone had to prove that even a simple "Hello World" can be an exercise in digital demonology. This started as a challenge to create the most cursed C code possible while maintaining portability across architectures.
 
@@ -52,7 +54,7 @@ Because someone had to prove that even a simple "Hello World" can be an exercise
 - Appreciation for normal, boring code
 - Existential dread about the state of software engineering
 
-## 🏆 Hall of Cursed Fame
+## Hall of Cursed Fame
 
 This abomination features every dark art known to C programming:
 
@@ -64,7 +66,7 @@ This abomination features every dark art known to C programming:
 - Volatile everything
 - Macro expansion that would make Satan proud
 
-## 🤝 Contributing
+## Contributing
 
 Found a way to make this even more cursed? Pull requests welcome! Just remember: if your code doesn't make at least three senior developers cry, it's not cursed enough.
 
