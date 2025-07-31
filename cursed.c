@@ -6,6 +6,7 @@
 ??=include<stdarg.h>
 ??=include<setjmp.h>
 ??=include<signal.h>
+??=include<stdint.h>
 
 ??=define CHAOS(x) x
 ??=define CURSE(a,b) (((a)??!(b))^((a)&(b)))
