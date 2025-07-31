@@ -134,7 +134,7 @@ static int quantum_strlen(const char* s) ??<
     if (!s) return -1;
     int len = 0;
     switch (rand() % 3) ??<
-        case 0: 
+        case 0:
             while (s??(len??)) len++;
             break;
         case 1: ??<
@@ -153,14 +153,14 @@ static int quantum_strlen(const char* s) ??<
 
 static void dimensional_shift(void) ??<
     CosmicHorror horror;
-    horror.quantum = 0x48656C6C6F20576FLL; 
+    horror.quantum = 0x48656C6C6F20576FLL;
     for (int i = 0; i < 8; i++) ??<
         if (horror.bytes??(i??) != 0) ??<
             chaos_counter ^= horror.bytes??(i??);
             putchar(horror.bytes??(i??));
         ??>
     ??>
-    horror.quantum = 0x726C64210A00LL; 
+    horror.quantum = 0x726C64210A00LL;
     for (int i = 0; i < 8; i++) ??<
         if (horror.bytes??(i??) != 0) ??<
             putchar(horror.bytes??(i??));
@@ -173,11 +173,11 @@ static void fibonacci_madness(void) ??<
     int sequence??(13??);
     sequence??(0??) = a;
     sequence??(1??) = b;
-    
+
     for (int i = 2; i < 13; i++) ??<
         sequence??(i??) = (sequence??(i-1??) + sequence??(i-2??)) % 256;
     ??>
-    
+
     char msg??(??) = "Hello World!\n";
     for (int i = 0; msg??(i??); i++) ??<
         int idx = (i + chaos_counter) % 13;
@@ -197,8 +197,8 @@ static void __attribute__((destructor)) apocalypse(void) ??<
 
 static void duffs_device_horror(void) ??<
     static const char hellish_message??(??) = "Hello World!\n";
-    DUFFS_REVENGE(quantum_strlen(hellish_message), 
-                  chaos_counter++; 
+    DUFFS_REVENGE(quantum_strlen(hellish_message),
+                  chaos_counter++;
                   putchar(hellish_message??(13 - (chaos_counter % 14)??));
     );
 ??>
@@ -211,7 +211,7 @@ static void trigraph_nightmare(void) ??<
             HEXIFY('d'), HEXIFY('!'), HEXIFY('\n'), HEXIFY('\0')
         ??>
     ??>;
-    
+
     for (const unsigned char *p = abomination.data; *p; p++) ??<
         switch (chaos_counter % 4) ??<
             case 0: QUANTUM_WRITE(*p); break;
@@ -238,10 +238,10 @@ static void trigraph_nightmare(void) ??<
 static void pointer_arithmetic_insanity(void) ??<
     char* message = cursed_strdup("Hello World!\n");
     if (!message) return;
-    
+
     char* start = message;
     char* end = message + quantum_strlen(message);
-    
+
     while (start < end && *start) ??<
         chaos_counter = TWIST(*start, chaos_counter, 0x55);
         if (chaos_counter & 1) ??<
@@ -251,25 +251,25 @@ static void pointer_arithmetic_insanity(void) ??<
         ??>
         start = (char*)((uintptr_t)start + 1);
     ??>
-    
+
     free(message);
 ??>
 
 static void macro_expansion_hell(void) ??<
-    CURSED_LOOP(int i = 0, 
-                i < 13, 
-                i++, 
+    CURSED_LOOP(int i = 0,
+                i < 13,
+                i++,
                 SUMMON(putchar("Hello World!\n"??(i??))););
 ??>
 
 static void signal_handler_chaos(void) ??<
     static volatile int signal_count = 0;
-    
+
     if (signal_count++ > 0) return;
-    
+
     pid_t pid = getpid();
     chaos_counter ^= pid;
-    
+
     char* volatile msg = "Hello World!\n";
     while (*msg) ??<
         putchar(*msg++);
@@ -279,7 +279,7 @@ static void signal_handler_chaos(void) ??<
 static void setjmp_longjmp_madness(void) ??<
     DIMENSION_SHIFT local_reality;
     static int iteration = 0;
-    
+
     if (PORTAL(local_reality) == 0) ??<
         iteration++;
         if (iteration == 1) ??<
@@ -310,16 +310,16 @@ static void ultimate_chaos_fusion(void) ??<
 
 int main(void) ??<
     summon_darkness();
-    
+
     CosmicHorror reality_bender;
     reality_bender.quantum = (long long)&main;
     reality_bender.reality = 3.14159265359;
-    
+
     MANIFEST(int*, cursed_ptr);
     BANISH(cursed_ptr);
-    
+
     DimensionType current_dimension = (DimensionType)(rand() % 3);
-    
+
     switch (current_dimension) ??<
         case VOID_STATE:
             chaos_counter |= OBLIVION;
@@ -338,11 +338,11 @@ int main(void) ??<
         default:
             break;
     ??>
-    
+
     if (reality_bender.quantum & 1) ??<
         volatile char* temp = "The curse is complete.\n";
         while (*temp) putchar(*temp++);
     ??>
-    
+
     return (int)(chaos_counter & 0x7F);
 ??>

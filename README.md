@@ -34,11 +34,27 @@ Behold, mortal programmer! Within this repository lies the ultimate abomination 
 
 ## Summoning Instructions
 
+### The Primary Ritual
+
 ```bash
 git clone https://github.com/dunamismax/hello-world-from-hell.git
 cd hello-world-from-hell
+make hell  # The main incantation: cleanses, builds, and unleashes hell
+```
+
+### Alternative Incantations
+
+```bash
+# Traditional approach (for the uninitiated)
 make
-./a.out  # Abandon hope, all ye who execute here
+./cursed_spawn
+
+# Individual rituals
+make banish    # Destroy all compiled demons
+make build     # Forge the cursed binary
+make summon    # Execute the digital incantation
+make purge     # Complete exorcism of all artifacts
+make help      # Display forbidden knowledge
 ```
 
 **Expected Output**: `Hello World!` (or variations like `H}elljo BWhorld*!` depending on which circle of hell you're visiting)
