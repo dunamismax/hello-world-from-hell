@@ -4,6 +4,8 @@
 
 _The most cursed, unholy, and beautifully twisted Hello World program ever written in C_
 
+> **Pro tip:** Check the line count of `cursed.c` for a delightfully evil surprise
+
 [![Compile Status](https://img.shields.io/badge/compile-succesfully%20cursed-red.svg)](https://github.com/dunamismax/hello-world-from-hell)
 [![Portability](https://img.shields.io/badge/runs%20on-your%20nightmares-darkred.svg)](https://github.com/dunamismax/hello-world-from-hell)
 [![Code Quality](https://img.shields.io/badge/code%20quality-eldritch%20horror-black.svg)](https://github.com/dunamismax/hello-world-from-hell)
