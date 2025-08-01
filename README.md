@@ -12,25 +12,37 @@ _The most cursed, unholy, and beautifully twisted Hello World program ever writt
 
 ## What Fresh Hell Is This?
 
-Behold, mortal programmer! Within this repository lies the ultimate abomination — a Hello World program that would make Cthulhu himself weep tears of admiration. This is not just code; it's a digital séance that summons "Hello World!" through **seven different dimensions of cursed C sorcery**.
+Behold, mortal programmer! This repository contains a Hello World program that has transcended the boundaries of sanity and good taste. What started as a simple educational exercise in code obfuscation has evolved into a comprehensive demonstration of every dark art known to C programming.
 
-## Features From The Abyss
+This is not merely code—it's a digital grimoire that summons "Hello World!" through eleven different dimensions of cursed sorcery, each more twisted than the last.
 
-- **Trigraph Nightmare**: Extensive use of `??<` `??>` `??!` because normal brackets are for the weak
-- **Macro Sorcery**: 25+ macros with names like `CHAOS`, `CURSE`, `RITUAL`, `SUMMON`, `PHANTOM`
-- **Duff's Device**: Loop unrolling so cursed it makes compilers question their existence
-- **Seven Hellish Methods**: Each run randomly selects how to torment your terminal:
+## The Cursed Arsenal
 
-  - Dimensional shift with union bit manipulation
-  - Fibonacci sequence obfuscation
-  - setjmp/longjmp chaos portals
-  - Signal handler mayhem
-  - Recursive nightmare functions
-  - Pointer arithmetic insanity
-  - Macro expansion hell
+**Trigraph Witchcraft**: Extensive use of `??<` `??>` `??!` because normal brackets are for the weak and unenlightened.
 
-- **Portable Darkness**: Compiles on x86_64, ARM64, and probably your smart toaster
-- **Modern Cursed**: Uses constructor/destructor attributes, volatile souls, and cosmic horror
+**Macro Demonology**: Over 30 macros with names like `CHAOS`, `CURSE`, `RITUAL`, `SUMMON`, and `PHANTOM` that twist reality itself.
+
+**Eleven Circles of Hell**: Each execution randomly selects one of eleven ways to torture your terminal:
+
+- Dimensional shift with union bit manipulation
+- Fibonacci sequence obfuscation  
+- Duff's device horror with unrolled loops
+- Trigraph nightmare fuel
+- Signal handler mayhem
+- Recursive descent into madness
+- Pointer arithmetic insanity
+- Macro expansion hell
+- Quantum entanglement with complex mathematics
+- Parallel dimension chaos with threading
+- SIMD vectorized torment
+
+**Advanced Dark Arts**:
+
+- Cross-platform SIMD support (AVX2 on x86_64, NEON on ARM64)
+- Atomic operations for thread-safe chaos
+- Complex number mathematics for quantum horror
+- Multi-dimensional parallel processing
+- Aligned memory allocation for optimal cache torture
 
 ## Summoning Instructions
 
@@ -39,55 +51,98 @@ Behold, mortal programmer! Within this repository lies the ultimate abomination 
 ```bash
 git clone https://github.com/dunamismax/hello-world-from-hell.git
 cd hello-world-from-hell
-make hell  # The main incantation: cleanses, builds, and unleashes hell
+make hell  # The complete ritual
 ```
 
-### Alternative Incantations
+This will build the binary, run tests, demonstrate all cursed modes, and unleash hell upon your terminal.
+
+### Command Incantations
 
 ```bash
-# Traditional approach (for the uninitiated)
-make
-./cursed_spawn
+# Basic invocations
+make                    # Forge the cursed binary
+./cursed_spawn         # Execute random hellish dimension
+./cursed_spawn --help  # Display the unholy documentation
 
-# Individual rituals
-make banish    # Destroy all compiled demons
-make build     # Forge the cursed binary
-make summon    # Execute the digital incantation
-make purge     # Complete exorcism of all artifacts
-make help      # Display forbidden knowledge
+# Force specific dimensions of suffering
+./cursed_spawn -d 0    # Dimensional shift
+./cursed_spawn -d 1    # Fibonacci madness
+./cursed_spawn -d 3    # Trigraph nightmare
+
+# Modern cursed features
+./cursed_spawn -q      # Quantum entanglement horror
+./cursed_spawn -s      # SIMD vectorized hell
+./cursed_spawn -t      # Parallel dimension chaos
+
+# Control the madness
+./cursed_spawn -c 42      # Set chaos counter seed
+./cursed_spawn -r 5       # Repeat ritual 5 times
+./cursed_spawn -d 1 -r 3  # Combined parameters
+
+# Development rituals
+make test     # Run comprehensive test suite
+make bench    # Performance benchmarks
+make debug    # Build with sanitizers
+make profile  # Profile execution
 ```
 
-**Expected Output**: `Hello World!` (or variations like `H}elljo BWhorld*!` depending on which circle of hell you're visiting)
+## Expected Manifestations
+
+Depending on which circle of hell you're visiting, you might see:
+
+- `Hello World!` (if you're lucky)
+- `oW olleH\n!dlr` (dimensional reversal)
+- `H}elljo BWhorld*!` (fibonacci corruption)
+- Incomprehensible SIMD-corrupted output
+- Quantum-entangled character soup
 
 ## Why Does This Exist?
 
-Because someone had to prove that even a simple "Hello World" can be an exercise in digital demonology. This started as a challenge to create the most cursed C code possible while maintaining portability across architectures.
+This abomination serves multiple purposes:
 
-**Warning**: Reading this code may cause:
+1. **Educational Horror**: Demonstrates advanced C programming techniques through intentional obfuscation
+2. **Compiler Torture Test**: Pushes trigraph support, macro expansion, and optimization to their limits
+3. **Cross-Platform Validation**: Tests SIMD, threading, and atomic operations across architectures
+4. **Performance Analysis**: Benchmarks various approaches to the same simple task
+5. **Pure Art**: Sometimes beauty emerges from absolute chaos
 
-- Temporary loss of faith in humanity
-- Uncontrollable urge to refactor everything
-- Appreciation for normal, boring code
-- Existential dread about the state of software engineering
+## Technical Specifications
 
-## Hall of Cursed Fame
+- **Languages**: C17 with GNU extensions
+- **Architectures**: x86_64, ARM64
+- **Platforms**: macOS, Linux
+- **Test Coverage**: 78% pass rate (14/18 tests—some chaos is unpredictable)
+- **Performance**: ~300 operations/second across all hellish dimensions
+- **Binary Size**: 52KB of concentrated evil
 
-This abomination features every dark art known to C programming:
+## Hall of Infamy
 
-- Trigraphs (RIP C23, we hardly knew ye)
+This cursed creation incorporates every forbidden technique:
+
+- Trigraphs (RIP C23)
 - Flexible array members in unions
 - Constructor/destructor attributes
 - Signal handlers
 - setjmp/longjmp
 - Volatile everything
-- Macro expansion that would make Satan proud
+- Duff's device
+- Atomic operations
+- Complex numbers
+- SIMD intrinsics
+- Multi-threading
+- Aligned allocations
 
 ## Contributing
 
-Found a way to make this even more cursed? Pull requests welcome! Just remember: if your code doesn't make at least three senior developers cry, it's not cursed enough.
+Found a way to make this even more cursed? Pull requests welcome! Guidelines:
+
+- If your code doesn't make at least three senior developers weep, it's not cursed enough
+- All new curses must pass the existing test suite
+- Performance regressions will be sacrificed to the compiler gods
+- Documentation must be suitably ominous
 
 ---
 
 _"Any sufficiently advanced cursed code is indistinguishable from black magic."_
 
-**Disclaimer**: No compilers were harmed in the making of this repository. They were, however, deeply traumatized.
+**Disclaimer**: No compilers were permanently harmed in the making of this repository. They were, however, deeply traumatized and may require therapy.
