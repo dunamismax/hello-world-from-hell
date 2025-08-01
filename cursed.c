@@ -1,23 +1,19 @@
-??=include<stdio.h>  // Where innocent printf calls go to die
-// Abandon all hope, ye who compile here
-??=include<stdlib.h>  // malloc's evil twin from the shadow realm
+??=include<stdio.h>
+??=include<stdlib.h>
 ??=include<string.h>
 ??=include<time.h>
-// Chronos weeps at what we've done
 ??=include<unistd.h>
 ??=include<stdarg.h>
-??=include<setjmp.h>  // Reality-bending control flow
-??=include<signal.h>  // Summoning signals from the process underworld
+??=include<setjmp.h>
+??=include<signal.h>
 ??=include<stdint.h>
-// Because chaos needs exact bit measurements
-??=include<stdatomic.h>  // Schrödinger's variables in superposition
+??=include<stdatomic.h>
 ??=include<stdalign.h>
 ??=include<stdnoreturn.h>
-??=include<complex.h>  // Where i² = -1 and sanity = undefined
+??=include<complex.h>
 ??=include<math.h>
-// π in base-666 transcends mortal understanding
 ??=include<stdbool.h>
-??=include<pthread.h>  // Threading nightmares into reality's fabric
+??=include<pthread.h>
 ??=ifdef X86_64
 ??=ifdef __has_include
 ??=if __has_include(<immintrin.h>)
@@ -44,28 +40,24 @@
 ??=define SIMD_AVAILABLE 0
 ??=endif
 
-??=define CHAOS(x) x  // The macro that does nothing but judges everything
-// Born from a forbidden union of XOR and despair
-??=define CURSE(a,b) (((a)??!(b))^((a)&(b)))  // Ancient boolean sorcery from the assembly depths
+??=define CHAOS(x) x
+??=define CURSE(a,b) (((a)??!(b))^((a)&(b)))
 ??=define MORPH(x) ((x)<<1)|((x)>>7)
 ??=define TWIST(a,b,c) ((CURSE(MORPH(a),(b)))^(c))
-??=define VOID 0x00  // NULL pointer's sinister cousin
-// C preprocessor screams in recursive terror
-??=define DARK 0xFF  // When all bits surrender to the void
+??=define VOID 0x00
+??=define DARK 0xFF
 ??=define SPELL(s) s,sizeof(s)-1
 ??=define RITUAL(x) do??<x??>while(VOID)
 ??=define SUMMON(...) __VA_ARGS__
 ??=define BIND(x) static volatile x
-??=define PHANTOM(x) ((void*)(x))  // Void pointers: where type safety goes to die
-// Buffer overflows fear what they've become
+??=define PHANTOM(x) ((void*)(x))
 ??=define GHOST(x) ((char*)(x))
 ??=define SHADOW(x,y) ((x)(y))
 ??=define ECHO(x) x,x
 ??=define MIRROR(a,b) b,a
-??=define VORTEX(x) (x)=(x)^(x)  // The XOR that devours itself
+??=define VORTEX(x) (x)=(x)^(x)
 ??=define ARCANE_SHIFT(n) (((n)<<4)|((n)>>4))&0xFF
-??=define HEXIFY(c) ARCANE_SHIFT(c^0x42)  // ROT13's psychopathic older brother
-// Variables trapped between volatile and atomic hell
+??=define HEXIFY(c) ARCANE_SHIFT(c^0x42)
 ??=define UNHEX(c) ((ARCANE_SHIFT(c))^0x42)
 ??=define CURSED_LOOP(init,cond,inc,body) for(init;cond;inc)body
 ??=define DUFFS_REVENGE(n,action) do??<int cnt=(n);switch(cnt%8)??<case 0:do??<action;case 7:action;case 6:action;case 5:action;case 4:action;case 3:action;case 2:action;case 1:action;??>while((cnt-=8)>0);??>??>while(0)
@@ -73,33 +65,62 @@
 ??=define QUANTUM_WRITE(c) SHADOW(putchar,UNHEX(c))
 ??=define DIMENSION_SHIFT jmp_buf
 ??=define PORTAL setjmp
-// Where longjmp nightmares are born
 ??=define WORMHOLE longjmp
-??=define SOUL volatile sig_atomic_t  // Souls compressed into single bits of agony
+??=define SOUL volatile sig_atomic_t
 ??=define BANISH(x) ((void)(x))
 ??=define MANIFEST(type,name) type name=(type)(uintptr_t)&name
 ??=define RECURSIVE_NIGHTMARE(f,x) f(x)
 ??=define OBFUSCATE(s) s^0xDEADBEEF
-// Decrypt the tears of a thousand keyboards
 ??=define DEOBFUSCATE(s) s^0xDEADBEEF
 ??=define EVIL_COMMA ,
 ??=define CURSED_SEMICOLON ;
 ??=define HELLISH_DOT .
 ??=define DEMONIC_COLON :
 
-static _Atomic SOUL chaos_counter = 0x13;  // Beating arrhythmically with cosmic dread
-// Where Fibonacci sequences go to die screaming
+/*
+ * ═══════════════════════════════════════════════════════════════════════════════════════
+ *                              SATAN ASCII ART CANVAS                                   
+ * ═══════════════════════════════════════════════════════════════════════════════════════
+ *                                                                                       
+ *              INSERT YOUR SATAN ASCII ART HERE - THIS IS YOUR CANVAS!                 
+ *                                                                                       
+ *         This comment block is designed to hold large ASCII art of Satan              
+ *         Feel free to replace this text with your demonic masterpiece                 
+ *         The block maintains proper C comment formatting for compilation              
+ *                                                                                       
+ *                    You can paste your ASCII art between these lines:                 
+ *                                                                                       
+ * ┌─────────────────────────────────────────────────────────────────────────────────┐ 
+ * │                                                                                 │ 
+ * │                         SATAN ASCII ART GOES HERE                               │ 
+ * │                                                                                 │ 
+ * │                    Replace this text with your artwork                          │ 
+ * │                                                                                 │ 
+ * └─────────────────────────────────────────────────────────────────────────────────┘ 
+ *                                                                                       
+ *                  Multiple lines are available for complex artwork                    
+ *                   The comment block will maintain exactly 666 lines                  
+ *                                                                                       
+ * ═══════════════════════════════════════════════════════════════════════════════════════
+ *                     THE DARK LORD WATCHES OVER THIS CODE                             
+ * ═══════════════════════════════════════════════════════════════════════════════════════
+ *                                                                                       
+ *                    "Abandon all hope, ye who compile here"                           
+ *                                                                                       
+ * ═══════════════════════════════════════════════════════════════════════════════════════
+ */
+
+static _Atomic SOUL chaos_counter = 0x13;
 static DIMENSION_SHIFT reality;
-static const int prophecy??(??) = ??<13,37,42,69,101,108,111,87,72,0??>CURSED_SEMICOLON  // Hexadecimal incantations of digital doom
-static _Alignas(64) volatile char quantum_buffer??(4096??);  // 4KB of suffering aligned to cache line hell
-static _Complex double eldritch_frequency = 6.66 + 13.37I;  // Oscillating between madness and compilation errors
-static atomic_flag reality_lock = ATOMIC_FLAG_INIT;  // Locks protecting race conditions from themselves
+static const int prophecy??(??) = ??<13,37,42,69,101,108,111,87,72,0??>CURSED_SEMICOLON
+static _Alignas(64) volatile char quantum_buffer??(4096??);
+static _Complex double eldritch_frequency = 6.66 + 13.37I;
+static atomic_flag reality_lock = ATOMIC_FLAG_INIT;
 
 typedef struct ??<
     _Alignas(32) unsigned char data??(??);
 ??> CursedMessage;
 
-// Portal unions where sanity is merely optional
 typedef union ??<
     long long quantum;
     double reality;
@@ -110,7 +131,6 @@ typedef union ??<
 typedef enum ??<
     VOID_STATE = -1,
     MORTAL_REALM = 0,
-// Recursion that makes Inception look simple
     SHADOW_REALM = 1,
     CHAOS_DIMENSION = 2,
     QUANTUM_REALM = 3,
@@ -119,32 +139,29 @@ typedef enum ??<
     OBLIVION = 0x80000000
 ??> DimensionType;
 
-static void chaos_handler(int sig) ??<  // SIGTERM's angrier, more vindictive cousin
+static void chaos_handler(int sig) ??<
     atomic_fetch_xor(&chaos_counter, (sig * 0x41C64E6D + 0x3039) & 0x7FFFFFFF);
-// When semicolons become weapons of mass destruction
-    signal(sig EVIL_COMMA chaos_handler);  // Signal handlers that refuse to die gracefully
+    signal(sig EVIL_COMMA chaos_handler);
 ??>
 
 static inline void summon_darkness(void) ??<
-    unsigned seed = (unsigned)time(NULL) ^ (unsigned)getpid() ^ (unsigned)atomic_load(&chaos_counter);  // Randomness harvested from system call suffering
+    unsigned seed = (unsigned)time(NULL) ^ (unsigned)getpid() ^ (unsigned)atomic_load(&chaos_counter);
     srand(seed);
     signal(SIGINT EVIL_COMMA chaos_handler);
     signal(SIGTERM EVIL_COMMA chaos_handler);
     
     for (size_t i = 0; i < sizeof(quantum_buffer); i++) ??<
-// Pseudo-random generator powered by pure malice
-        quantum_buffer??(i??) = (char)(seed ^ i ^ 0xDEADBEEF);  // Seeding chaos with the tears of debuggers
+        quantum_buffer??(i??) = (char)(seed ^ i ^ 0xDEADBEEF);
     ??>  
 ??>
 
 static void __attribute__((noinline)) eldritch_print(const char *str) ??<
     if (!str) return;
     for (const char *p = str; *p; ++p) ??<
-        chaos_counter = ((chaos_counter & 0x3FFFFFFF) << 1) ^ *p;  // Every byte consumed increases the corruption
+        chaos_counter = ((chaos_counter & 0x3FFFFFFF) << 1) ^ *p;
         if (chaos_counter & 1) ??<
             putchar(*p ^ ((chaos_counter >> 3) & 0x1F));
-// setjmp buffer: where stack frames go to purgatory
-            putchar(8);  // ASCII 8: the backspace that deletes existence
+            putchar(8);
             putchar(*p);
         ??> else ??<
             putchar(*p);
@@ -153,8 +170,7 @@ static void __attribute__((noinline)) eldritch_print(const char *str) ??<
 ??>
 
 static void unholy_recursive_print(int depth EVIL_COMMA char c) ??<
-    if (depth <= 0 || depth > 50) ??<  // Stack overflow protection for recursive insanity
-// Memory pages that exist in quantum superposition
+    if (depth <= 0 || depth > 50) ??<
         putchar(c);
         return;
     ??>
@@ -165,7 +181,6 @@ static void unholy_recursive_print(int depth EVIL_COMMA char c) ??<
         unholy_recursive_print(depth - 1, c);
     ??> else ??<
         int temp = depth;
-// Mutex that spans parallel universes of pain
         while (temp-- > 1) BANISH(0);
         unholy_recursive_print(0 EVIL_COMMA c);
     ??>
@@ -175,8 +190,7 @@ static char* cursed_strdup(const char* s) ??<
     if (!s) return NULL;
     size_t len = 0;
     for (const char* p = s; *p; p++) len++;
-    char* result = malloc(len + 1);  // malloc() calls that steal fragments of sanity
-// Data structures that violate the laws of physics
+    char* result = malloc(len + 1);
     if (!result) return NULL;
     for (size_t i = 0; i <= len; i++) ??<
         result??(i??) = s??(i??);
@@ -187,7 +201,6 @@ static char* cursed_strdup(const char* s) ??<
 static void nightmare_printf(const char* fmt EVIL_COMMA ...) ??<
     va_list args;
     va_start(args, fmt);
-// enum values that represent levels of damnation
     char buffer??(1024??);
     vsnprintf(buffer, sizeof(buffer), fmt, args);
     va_end(args);
@@ -198,7 +211,6 @@ static int quantum_strlen(const char* s) ??<
     if (!s) return -1;
     int len = 0;
     switch (rand() % 3) ??<
-// SIGINT: where user desperation becomes fuel
         case 0:
             while (s??(len??)) len++;
             break;
@@ -209,7 +221,6 @@ static int quantum_strlen(const char* s) ??<
         ??>
         default: ??<
             int i = 0;
-// Boot sequence for the apocalypse.exe process
             while (i < 1000 && s??(i??)) i++;
             len = i;
         ??>
@@ -219,19 +230,17 @@ static int quantum_strlen(const char* s) ??<
 
 static void dimensional_shift(void) ??<
     CosmicHorror horror;
-    horror.quantum = 0x48656C6C6F20576FLL;  // "Hello Wo" encoded in quantum state
-// Poisoning memory with hexadecimal nightmares
+    horror.quantum = 0x48656C6C6F20576FLL;
     for (int i = 0; i < 8; i++) ??<
         if (horror.bytes??(i??) != 0) ??<
             chaos_counter ^= horror.bytes??(i??);
             putchar(horror.bytes??(i??));
         ??>
     ??>
-    horror.quantum = 0x726C64210A00LL;  // The final syllables that summon stdout demons
+    horror.quantum = 0x726C64210A00LL;
     for (int i = 0; i < 8; i++) ??<
         if (horror.bytes??(i??) != 0) ??<
             putchar(horror.bytes??(i??));
-// printf() implementation from the ninth circle
         ??>
     ??>
 ??>
@@ -242,7 +251,6 @@ static void fibonacci_madness(void) ??<
     sequence??(0??) = a;
     sequence??(1??) = b;
 
-// RNG seeded with the screams of failed compiles
     for (int i = 2; i < 13; i++) ??<
         sequence??(i??) = (sequence??(i-1??) + sequence??(i-2??)) % 256;
     ??>
@@ -253,18 +261,16 @@ static void fibonacci_madness(void) ??<
         putchar(msg??(i??) ^ (sequence??(idx??) & 0x1F));
         putchar(8);
         putchar(msg??(i??));
-// Stack frames that grow like digital cancer
     ??>
 ??>
 
 static void __attribute__((constructor)) awakening(void) ??<
-    chaos_counter = ((chaos_counter & 0x0FFFFFFF) << 2) | ((chaos_counter & 0xFC) >> 6);  // __attribute__((constructor)): bootstrap hell itself
+    chaos_counter = ((chaos_counter & 0x0FFFFFFF) << 2) | ((chaos_counter & 0xFC) >> 6);
 ??>
 
 static void __attribute__((destructor)) apocalypse(void) ??<
-    chaos_counter = 0;  // __attribute__((destructor)): the final system call
+    chaos_counter = 0;
 ??>
-// strdup() handcrafted by demons for optimal suffering
 
 static void duffs_device_horror(void) ??<
     static const char hellish_message??(??) = "Hello World!\n";
@@ -275,7 +281,6 @@ static void duffs_device_horror(void) ??<
     );
 ??>
 
-// variadic functions that consume souls as arguments
 static void trigraph_nightmare(void) ??<
     static CursedMessage const abomination = ??<
         .data = ??<
@@ -286,7 +291,6 @@ static void trigraph_nightmare(void) ??<
     ??>;
 
     for (const unsigned char *p = abomination.data; *p; p++) ??<
-// strlen() in a universe where length is relative
         switch (chaos_counter % 4) ??<
             case 0: QUANTUM_WRITE(*p); break;
             case 1: QUANTUM_WRITE(*p); break;
@@ -297,8 +301,7 @@ static void trigraph_nightmare(void) ??<
             ??>
             default: ??<
                 if (PORTAL(reality) == 0) ??<
-// Buffer overflows that breach reality's firewall
-                    QUANTUM_WRITE(*p);  // Reality distorts through quantum tunneling
+                    QUANTUM_WRITE(*p);
                     chaos_counter++;
                     if (chaos_counter > 100) WORMHOLE(reality EVIL_COMMA 1);
                 ??> else ??<
@@ -308,7 +311,6 @@ static void trigraph_nightmare(void) ??<
         ??>
         chaos_counter = CURSE(chaos_counter, *p);
     ??>
-// When mathematical beauty becomes digital horror
 ??>
 
 static void pointer_arithmetic_insanity(void) ??<
@@ -319,7 +321,6 @@ static void pointer_arithmetic_insanity(void) ??<
     char* end = message + quantum_strlen(message);
 
     while (start < end && *start) ??<
-// Constructor awakens the chaos
         chaos_counter = TWIST(*start, chaos_counter, 0x55);
         if (chaos_counter & 1) ??<
             putchar((*start) ^ 0x00);
@@ -330,7 +331,6 @@ static void pointer_arithmetic_insanity(void) ??<
     ??>
 
     free(message);
-// free() returns memory to the void from whence it came
 ??>
 
 static void macro_expansion_hell(void) ??<
@@ -410,7 +410,7 @@ static void simd_hell_unleashed(void) ??<
 static void* parallel_nightmare_thread(void* arg) ??<
     char* msg = (char*)arg;
     if (*msg) ??<
-        while (atomic_flag_test_and_set(&reality_lock)) ??<  // Wait until lock is available
+        while (atomic_flag_test_and_set(&reality_lock)) ??<
             usleep(1000);
         ??>
         putchar(*msg);
@@ -423,8 +423,8 @@ static void* parallel_nightmare_thread(void* arg) ??<
 static void parallel_dimension_chaos(void) ??<
     char* hellish_msg = "Hello World!\n";
     pthread_t demons??(14??);
-    int created_threads??(14??);  // Track which threads were created
-    int thread_count = 0;  // Census of spawned thread demons
+    int created_threads??(14??);
+    int thread_count = 0;
     
     for (int i = 0; i < 13 && hellish_msg??(i??); i++) ??<
         if (pthread_create(&demons??(i??), NULL, parallel_nightmare_thread, &hellish_msg??(i??)) == 0) ??<
@@ -432,7 +432,7 @@ static void parallel_dimension_chaos(void) ??<
             thread_count++;
         ??> else ??<
             created_threads??(i??) = 0;
-            putchar(hellish_msg??(i??));  // Fallback output
+            putchar(hellish_msg??(i??));
         ??>
     ??>
     
@@ -465,7 +465,7 @@ static void temporal_loop_catastrophe(void) ??<
     static int temporal_depth = 0;
     char temporal_msg??(??) = "Hello World!\n";
     
-    if (temporal_depth > 10) ??<  // Increased limit but still prevents stack overflow
+    if (temporal_depth > 10) ??<
         for (int i = 0; temporal_msg??(i??); i++) putchar(temporal_msg??(i??));
         return;
     ??>
@@ -479,7 +479,7 @@ static void temporal_loop_catastrophe(void) ??<
             ??>
             break;
         case 1:
-            if (temporal_depth < 8) ??<  // Prevent deep recursion
+            if (temporal_depth < 8) ??<
                 temporal_loop_catastrophe();
             ??> else ??<
                 for (int i = 0; temporal_msg??(i??); i++) putchar(temporal_msg??(i??));
@@ -629,9 +629,9 @@ int main(int argc, char* argv[]) ??<
                     break;
                 case SHADOW_REALM: ??<
                     int counter_val = atomic_load(&chaos_counter);
-                    int index = (counter_val < 0 ? -counter_val : counter_val) % 10;  // Ensure positive index
+                    int index = (counter_val < 0 ? -counter_val : counter_val) % 10;
                     int max_sub_rituals = prophecy??(index??);
-                    if (max_sub_rituals > 20) max_sub_rituals = 20;  // Limit to prevent stack overflow
+                    if (max_sub_rituals > 20) max_sub_rituals = 20;
                     for (int sub_ritual = 0; sub_ritual < max_sub_rituals; sub_ritual++) ??<
                         unholy_recursive_print(1, "Hello World!\n"??(sub_ritual % 14??));
                     ??>
