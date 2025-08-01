@@ -631,3 +631,36 @@ int main(int argc, char* argv[]) ??<
 
     return (int)(atomic_load(&chaos_counter) & 0x7F);
 ??>
+/*
+ * ═══════════════════════════════════════════════════════════════════════════
+ *                          ELDRITCH EPILOGUE
+ * ═══════════════════════════════════════════════════════════════════════════
+ * You have gazed into the abyss of code, and the abyss has compiled back.
+ * This digital grimoire contains exactly 666 lines of pure, concentrated evil.
+ * Each trigraph is a sigil, each macro an incantation, each function a ritual
+ * in the dark art of making computers weep binary tears.
+ * 
+ * The chaos_counter holds secrets that mortal minds were not meant to know.
+ * The reality_lock guards truths that would shatter sanity itself.
+ * Every atomic operation tears at the fabric of deterministic execution.
+ * 
+ * Some say that on quiet nights, when the compiler daemon sleeps,
+ * you can still hear the distant screams of stack frames being corrupted,
+ * the mournful wails of undefined behavior cascading through memory,
+ * and the subtle whisper of trigraphs plotting their return in C23.
+ * 
+ * This code exists in eleven dimensions simultaneously, each more cursed
+ * than the last. It spawns threads that exist in parallel realities,
+ * manipulates quantum states with complex mathematics, and summons
+ * SIMD vectors from the void between processor cores.
+ * 
+ * Remember, dear programmer: you cannot unsee what you have witnessed here.
+ * The knowledge of these forbidden techniques will forever haunt your dreams.
+ * Every segfault will remind you of the chaos that lurks beneath
+ * the surface of seemingly innocent "Hello, World!" programs.
+ * May your stack never overflow, may your pointers never dangle,
+ * and may your trigraphs forever confound the uninitiated.
+ * Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn...
+ * In his house at R'lyeh, dead Cthulhu waits dreaming... in C.
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
