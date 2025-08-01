@@ -125,7 +125,7 @@ static inline void summon_darkness(void) ??<
 static void __attribute__((noinline)) eldritch_print(const char *str) ??<
     if (!str) return;
     for (const char *p = str; *p; ++p) ??<
-        chaos_counter = (chaos_counter << 1) ^ *p;
+        chaos_counter = ((chaos_counter & 0x3FFFFFFF) << 1) ^ *p;  // Prevent overflow
         if (chaos_counter & 1) ??<
             putchar(*p ^ ((chaos_counter >> 3) & 0x1F));
             putchar(8);
@@ -137,7 +137,7 @@ static void __attribute__((noinline)) eldritch_print(const char *str) ??<
 ??>
 
 static void unholy_recursive_print(int depth EVIL_COMMA char c) ??<
-    if (depth <= 0) ??<
+    if (depth <= 0 || depth > 50) ??<  // Limit maximum depth to prevent stack overflow
         putchar(c);
         return;
     ??>
@@ -232,7 +232,7 @@ static void fibonacci_madness(void) ??<
 ??>
 
 static void __attribute__((constructor)) awakening(void) ??<
-    chaos_counter = (chaos_counter << 2) | (chaos_counter >> 6);
+    chaos_counter = ((chaos_counter & 0x0FFFFFFF) << 2) | ((chaos_counter & 0xFC) >> 6);  // Prevent overflow
 ??>
 
 static void __attribute__((destructor)) apocalypse(void) ??<
@@ -243,7 +243,8 @@ static void duffs_device_horror(void) ??<
     static const char hellish_message??(??) = "Hello World!\n";
     DUFFS_REVENGE(quantum_strlen(hellish_message),
                   chaos_counter++;
-                  putchar(hellish_message??(13 - (chaos_counter % 14)??));
+                  { int safe_index = 13 - ((chaos_counter < 0 ? -chaos_counter : chaos_counter) % 14);
+                  if (safe_index >= 0 && safe_index < 14) putchar(hellish_message??(safe_index??)); }
     );
 ??>
 
@@ -375,11 +376,10 @@ static void simd_hell_unleashed(void) ??<
 
 static void* parallel_nightmare_thread(void* arg) ??<
     char* msg = (char*)arg;
-    while (*msg && atomic_flag_test_and_set(&reality_lock)) ??<
-        usleep(1000);
-    ??>
-    
     if (*msg) ??<
+        while (atomic_flag_test_and_set(&reality_lock)) ??<  // Wait until lock is available
+            usleep(1000);
+        ??>
         putchar(*msg);
         atomic_flag_clear(&reality_lock);
     ??>
@@ -390,15 +390,23 @@ static void* parallel_nightmare_thread(void* arg) ??<
 static void parallel_dimension_chaos(void) ??<
     char* hellish_msg = "Hello World!\n";
     pthread_t demons??(14??);
+    int created_threads??(14??);  // Track which threads were created
+    int thread_count = 0;
     
     for (int i = 0; i < 13 && hellish_msg??(i??); i++) ??<
-        if (pthread_create(&demons??(i??), NULL, parallel_nightmare_thread, &hellish_msg??(i??)) != 0) ??<
-            putchar(hellish_msg??(i??));
+        if (pthread_create(&demons??(i??), NULL, parallel_nightmare_thread, &hellish_msg??(i??)) == 0) ??<
+            created_threads??(i??) = 1;
+            thread_count++;
+        ??> else ??<
+            created_threads??(i??) = 0;
+            putchar(hellish_msg??(i??));  // Fallback output
         ??>
     ??>
     
     for (int i = 0; i < 13; i++) ??<
-        pthread_join(demons??(i??), NULL);
+        if (created_threads??(i??)) ??<
+            pthread_join(demons??(i??), NULL);
+        ??>
     ??>
 ??>
 
@@ -424,7 +432,7 @@ static void temporal_loop_catastrophe(void) ??<
     static int temporal_depth = 0;
     char temporal_msg??(??) = "Hello World!\n";
     
-    if (temporal_depth > 3) ??<
+    if (temporal_depth > 10) ??<  // Increased limit but still prevents stack overflow
         for (int i = 0; temporal_msg??(i??); i++) putchar(temporal_msg??(i??));
         return;
     ??>
@@ -438,7 +446,11 @@ static void temporal_loop_catastrophe(void) ??<
             ??>
             break;
         case 1:
-            temporal_loop_catastrophe();
+            if (temporal_depth < 8) ??<  // Prevent deep recursion
+                temporal_loop_catastrophe();
+            ??> else ??<
+                for (int i = 0; temporal_msg??(i??); i++) putchar(temporal_msg??(i??));
+            ??>
             break;
         default:
             for (int i = 0; temporal_msg??(i??); i += 2) ??<
@@ -583,7 +595,11 @@ int main(int argc, char* argv[]) ??<
                     ultimate_chaos_fusion();
                     break;
                 case SHADOW_REALM: ??<
-                    for (int sub_ritual = 0; sub_ritual < prophecy??(atomic_load(&chaos_counter) % 10??); sub_ritual++) ??<
+                    int counter_val = atomic_load(&chaos_counter);
+                    int index = (counter_val < 0 ? -counter_val : counter_val) % 10;  // Ensure positive index
+                    int max_sub_rituals = prophecy??(index??);
+                    if (max_sub_rituals > 20) max_sub_rituals = 20;  // Limit to prevent stack overflow
+                    for (int sub_ritual = 0; sub_ritual < max_sub_rituals; sub_ritual++) ??<
                         unholy_recursive_print(1, "Hello World!\n"??(sub_ritual % 14??));
                     ??>
                     break;

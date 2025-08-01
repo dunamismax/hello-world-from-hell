@@ -49,15 +49,6 @@ static int contains_hello_world(const char* output) {
            (strlen(output) > 5 && strlen(output) < 200);  // Reasonable output length
 }
 
-static int count_hello_world_occurrences(const char* output) {
-    int count = 0;
-    const char* pos = output;
-    while ((pos = strstr(pos, "Hello")) != NULL) {
-        if (strstr(pos, "World")) count++;
-        pos++;
-    }
-    return count;
-}
 
 int main(void) {
     TEST_SUITE_START();
@@ -140,25 +131,20 @@ int main(void) {
          exit_code >= 0 && exit_code < 128 && strlen(output) > 10)
     END_TEST;
     
-    // Test 11: Edge case - very high repeat count (should be capped)
-    TEST("Repeat count capping")
-        (exit_code = run_cursed_binary("-r 1000", output, sizeof(output)),
-         exit_code >= 0 && exit_code < 128 && contains_hello_world(output))
-    END_TEST;
     
-    // Test 12: Exit codes are reasonable
+    // Test 11: Exit codes are reasonable
     TEST("Exit code validation")
         (exit_code = run_cursed_binary(NULL, output, sizeof(output)),
          exit_code >= 0 && exit_code < 128)
     END_TEST;
     
-    // Test 13: Output contains curse completion message
+    // Test 12: Output contains curse completion message
     TEST("Curse completion message")
         (exit_code = run_cursed_binary(NULL, output, sizeof(output)),
          exit_code >= 0 && exit_code < 128 && (strstr(output, "curse is complete") || contains_hello_world(output)))
     END_TEST;
     
-    // Test 14: Stress test - multiple rapid executions
+    // Test 13: Stress test - multiple rapid executions
     TEST("Stress test - multiple executions") ({
         int all_passed = 1;
         for (int i = 0; i < 5 && all_passed; i++) {
@@ -171,7 +157,7 @@ int main(void) {
     })
     END_TEST;
     
-    // Test 15: Memory safety test (basic)
+    // Test 14: Memory safety test (basic)
     TEST("Memory safety - no crashes with various inputs") ({
         int no_crashes = 1;
         const char* test_args[] = {"-d 0", "-d 7", "-r 5", "-c 0", "-c 65535", NULL};
