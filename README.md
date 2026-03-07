@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/dunamismax/images/blob/main/c/hello-world-from-hell.png" alt="Hello World From Hell PNG" width="400" />
+  <img src="assets/images/hello-world-from-hell.png" alt="Hello World From Hell PNG" width="400" />
 </p>
 
 _The most cursed, unholy, and beautifully twisted Hello World program ever written in C_
