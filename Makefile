@@ -1,56 +1,97 @@
 # =============================================================================
 # CURSED MAKEFILE FROM THE DEPTHS OF PROGRAMMING HELL
-# Abandon all hope, ye who compile here
+# Honest enough to be safe, cursed enough to stay funny
 # =============================================================================
 
-# The dark compiler of choice - now with infernal intelligence
 CC ?= clang
 DEBUG ?= 0
-OPTIMS = -O3 -march=native -flto -funroll-loops
-DEBUG_FLAGS = -O0 -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
-CFLAGS = $(if $(filter 1,$(DEBUG)),$(DEBUG_FLAGS),$(OPTIMS)) $(UNHOLY_WARNINGS) -ftrigraphs -std=c17
-UNHOLY_WARNINGS := -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes
-UNHOLY_WARNINGS += -Wno-duplicate-decl-specifier -Wno-trigraphs -Wvla -Wformat=2
-LDFLAGS = $(if $(filter 1,$(DEBUG)),-fsanitize=address,$(OPTIMS))
+BUILD_DIR ?= build
 
-# Source of all evil
-CURSED_SOURCE = cursed.c
-INFERNAL_BINARY = cursed_spawn
-TEST_SOURCE = tests/test_cursed.c
-TEST_BINARY = tests/test_runner
-BENCH_SOURCE = benchmark/bench_cursed.c
-BENCH_BINARY = benchmark/bench_runner
+CURSED_SOURCE := cursed.c
+TEST_SOURCE := tests/test_cursed.c
+BENCH_SOURCE := benchmark/bench_cursed.c
 
-# Architecture detection for maximum portability
+INFERNAL_BINARY := $(BUILD_DIR)/cursed_spawn
+TEST_BINARY := $(BUILD_DIR)/test_runner
+BENCH_BINARY := $(BUILD_DIR)/bench_runner
+TARGET_BINARY_PATH := $(abspath $(INFERNAL_BINARY))
+
 UNAME_S := $(shell uname -s)
 UNAME_M := $(shell uname -m)
+
+OPTIMS := -O3 -march=native -flto -funroll-loops
+DEBUG_FLAGS := -O0 -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
+SANITIZER_FLAGS := -fsanitize=address,undefined
+UNHOLY_WARNINGS := -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes
+UNHOLY_WARNINGS += -Wno-duplicate-decl-specifier -Wno-trigraphs -Wvla -Wformat=2
+UTILITY_WARNINGS := -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes
+
 ifeq ($(UNAME_S),Darwin)
-	OS_FLAGS = -DMACOS
+	OS_FLAGS := -DMACOS
+	THREAD_FLAGS :=
 else ifeq ($(UNAME_S),Linux)
-	OS_FLAGS = -DLINUX
+	OS_FLAGS := -DLINUX
+	THREAD_FLAGS := -pthread
 else
-	OS_FLAGS = -DUNKNOWN_OS
+	OS_FLAGS := -DUNKNOWN_OS
+	THREAD_FLAGS :=
 endif
 
 ifeq ($(UNAME_M),x86_64)
-	ARCH_FLAGS = -DX86_64
+	ARCH_FLAGS := -DX86_64
 else ifeq ($(UNAME_M),arm64)
-	ARCH_FLAGS = -DARM64
+	ARCH_FLAGS := -DARM64
 else
-	ARCH_FLAGS = -DUNKNOWN_ARCH
+	ARCH_FLAGS := -DUNKNOWN_ARCH
 endif
 
-CFLAGS += $(OS_FLAGS) $(ARCH_FLAGS)
+CURSED_CFLAGS := $(if $(filter 1,$(DEBUG)),$(DEBUG_FLAGS),$(OPTIMS)) $(UNHOLY_WARNINGS) -ftrigraphs -std=c17 $(OS_FLAGS) $(ARCH_FLAGS) $(THREAD_FLAGS)
+CURSED_LDFLAGS := $(if $(filter 1,$(DEBUG)),$(SANITIZER_FLAGS),$(OPTIMS))
+CURSED_LDLIBS := -lm $(THREAD_FLAGS)
+UTILITY_CFLAGS := $(if $(filter 1,$(DEBUG)),-O0 -g3,-O2) $(UTILITY_WARNINGS) -std=c17 -D_POSIX_C_SOURCE=200809L
+
+.DELETE_ON_ERROR:
 
 # =============================================================================
 # RITUALS OF COMPILATION
 # =============================================================================
 
-# Default target - summon the darkness
-all: $(INFERNAL_BINARY)
+all: build
 
-# Primary incantation - cleanse, build, demonstrate, test, and unleash hell
-hell: banish $(INFERNAL_BINARY) 
+build: $(INFERNAL_BINARY)
+
+$(INFERNAL_BINARY): $(CURSED_SOURCE)
+	@mkdir -p $(BUILD_DIR)
+	@echo "Invoking the compiler daemon..."
+	@echo "Feeding trigraphs to the machine spirits..."
+	@echo "Compiling with $(CC) for $(UNAME_S)/$(UNAME_M)"
+	$(CC) $(CURSED_CFLAGS) $(CURSED_SOURCE) -o $(INFERNAL_BINARY) $(CURSED_LDFLAGS) $(CURSED_LDLIBS)
+	@echo "The cursed binary has been forged in $(INFERNAL_BINARY)."
+	@echo "Binary size: $$(du -h $(INFERNAL_BINARY) | cut -f1)"
+
+$(TEST_BINARY): $(TEST_SOURCE) $(INFERNAL_BINARY)
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(UTILITY_CFLAGS) -DTARGET_BINARY=\"$(TARGET_BINARY_PATH)\" $(TEST_SOURCE) -o $(TEST_BINARY)
+
+$(BENCH_BINARY): $(BENCH_SOURCE) $(INFERNAL_BINARY)
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(UTILITY_CFLAGS) -DTARGET_BINARY=\"$(TARGET_BINARY_PATH)\" $(BENCH_SOURCE) -o $(BENCH_BINARY)
+
+run: $(INFERNAL_BINARY)
+	@echo "Executing the digital incantation..."
+	./$(INFERNAL_BINARY) || echo "The demon has returned to the abyss with exit code $$?"
+
+summon: run
+
+test: $(INFERNAL_BINARY) $(TEST_BINARY)
+	@echo "Running cursed test suite..."
+	./$(TEST_BINARY)
+
+bench: $(INFERNAL_BINARY) $(BENCH_BINARY)
+	@echo "Running performance benchmarks from hell..."
+	./$(BENCH_BINARY)
+
+hell: clean build test
 	@echo "================================================================="
 	@echo "           CURSED HELLO WORLD - COMPLETE RITUAL"
 	@echo "================================================================="
@@ -65,117 +106,68 @@ hell: banish $(INFERNAL_BINARY)
 	@echo "  Dimension 1 (Fibonacci madness): $$(./$(INFERNAL_BINARY) -d 1 2>&1 | head -1 | cut -c1-30)..."
 	@echo "  Dimension 3 (Trigraph nightmare): $$(./$(INFERNAL_BINARY) -d 3 2>&1 | head -1 | cut -c1-30)..."
 	@echo ""
-	@echo "Testing advanced features..."
-	@echo "  SIMD hell: $$(./$(INFERNAL_BINARY) -s 2>&1 | head -1 | cut -c1-30)..."
-	@echo "  Quantum horror: $$(./$(INFERNAL_BINARY) -q 2>&1 | head -1 | cut -c1-30)..."
-	@echo "  Parallel chaos: $$(./$(INFERNAL_BINARY) -t 2>&1 | head -1 | cut -c1-30)..."
-	@echo ""
-	@echo "Running test suite..."
-	@$(MAKE) test 2>&1 | grep "Tests:"
-	@echo ""
 	@echo "Quick performance test (10 iterations)..."
-	@time -p (for i in $$(seq 1 10); do ./$(INFERNAL_BINARY) -d 0 >/dev/null 2>&1; done) 2>&1 | grep real
+	@time -p sh -c 'for i in $$(seq 1 10); do ./$(INFERNAL_BINARY) -d 0 >/dev/null 2>&1; done' 2>&1 | grep real
 	@echo ""
 	@echo "================================================================="
 	@echo "The complete ritual is finished. Hell has been unleashed."
 	@echo "Your terminal has survived... barely."
 	@echo "================================================================="
 
-# Build the abomination
-build: $(INFERNAL_BINARY)
-
-$(INFERNAL_BINARY): $(CURSED_SOURCE)
-	@echo "Invoking the compiler daemon..."
-	@echo "Feeding trigraphs to the machine spirits..."
-	@echo "Compiling with $(CC) for $(UNAME_S)/$(UNAME_M)"
-	$(CC) $(CFLAGS) $(LDFLAGS) $(CURSED_SOURCE) -o $(INFERNAL_BINARY)
-	@echo "The cursed binary has been forged in the fires of compilation."
-	@echo "Binary size: $$(du -h $(INFERNAL_BINARY) | cut -f1)"
-
-# Execute the hellish creation
-run: $(INFERNAL_BINARY)
-	@echo "Executing the digital incantation..."
-	./$(INFERNAL_BINARY) || echo "The demon has returned to the abyss with exit code $$?"
-
-# Summon hell (clean, build, run)
-summon: $(INFERNAL_BINARY)
-	@echo "Summoning the cursed output..."
-	./$(INFERNAL_BINARY) || echo "The demon has returned to the abyss with exit code $$?"
-
-# Banish all compiled demons
 banish:
-	@echo "Banishing compiled demons back to the void..."
-	rm -f $(INFERNAL_BINARY) *.out *.o
+	@echo "Banishing generated artifacts under $(BUILD_DIR)..."
+	rm -rf $(BUILD_DIR)
 	@echo "The digital realm has been cleansed."
 
-# Standard clean target for the uninitiated
 clean: banish
 
-# Test the cursed creation
-test: $(TEST_BINARY)
-	@echo "Running cursed test suite..."
-	./$(TEST_BINARY)
-
-$(TEST_BINARY): $(TEST_SOURCE) $(CURSED_SOURCE)
-	@mkdir -p tests
-	$(CC) $(CFLAGS) -DTEST_MODE $(TEST_SOURCE) -o $(TEST_BINARY)
-
-# Benchmark the infernal performance
-bench: $(BENCH_BINARY)
-	@echo "Running performance benchmarks from hell..."
-	./$(BENCH_BINARY)
-
-$(BENCH_BINARY): $(BENCH_SOURCE) $(CURSED_SOURCE)
-	@mkdir -p benchmark
-	$(CC) $(CFLAGS) -DBENCH_MODE $(BENCH_SOURCE) -o $(BENCH_BINARY)
-
-# Debug build with all the hellish safety checks
 debug:
-	@echo "Building debug version with address sanitizer..."
-	$(MAKE) DEBUG=1 $(INFERNAL_BINARY)
+	@echo "Building debug version with sanitizers..."
+	$(MAKE) DEBUG=1 build
 
-# Profile the cursed code
 profile: $(INFERNAL_BINARY)
 	@echo "Profiling the cursed execution..."
 	time -p ./$(INFERNAL_BINARY)
 	valgrind --tool=callgrind --collect-jumps=yes ./$(INFERNAL_BINARY) 2>/dev/null || echo "Valgrind not available"
 
-# Purge everything with extreme prejudice
-purge: banish
-	@echo "Performing complete exorcism of build artifacts..."
-	rm -f core core.* *.tmp *.temp .DS_Store *~
-	rm -rf tests/ benchmark/ *.dSYM/ callgrind.out.*
-	@echo "All traces of our dark work have been erased."
+purge:
+	@if [ "$(CONFIRM)" != "YES" ]; then \
+		echo "Refusing to purge without CONFIRM=YES."; \
+		echo "This target only removes generated files and common local junk."; \
+		exit 2; \
+	fi
+	@echo "Performing the confirmed exorcism..."
+	rm -rf $(BUILD_DIR) *.dSYM
+	rm -f core core.* *.tmp *.temp .DS_Store *~ callgrind.out.*
+	@echo "Generated traces have been erased."
 
-# Show the forbidden knowledge
 help:
 	@echo "==================================================================="
 	@echo "           CURSED MAKEFILE - COMMANDS FROM THE ABYSS"
 	@echo "==================================================================="
 	@echo ""
 	@echo "Primary Incantations:"
-	@echo "  make hell      - The main ritual: banish, build, then summon"
-	@echo "  make summon    - Execute the cursed binary"
-	@echo "  make banish    - Destroy all compiled demons"
-	@echo ""
-	@echo "Standard Rituals:"
-	@echo "  make           - Default: compile the abomination"
-	@echo "  make build     - Forge the cursed binary"
+	@echo "  make build     - Forge the cursed binary at $(INFERNAL_BINARY)"
 	@echo "  make run       - Execute the digital incantation"
-	@echo "  make clean     - Cleanse build artifacts"
+	@echo "  make test      - Build the binary and run deterministic smoke tests"
+	@echo "  make bench     - Build the binary and run curiosity-grade benchmarks"
+	@echo ""
+	@echo "Cleanup Rituals:"
+	@echo "  make clean     - Remove generated files under $(BUILD_DIR)"
+	@echo "  make purge     - Remove generated files plus local junk (requires CONFIRM=YES)"
 	@echo ""
 	@echo "Advanced Dark Arts:"
-	@echo "  make purge     - Complete exorcism of all artifacts"
+	@echo "  make hell      - Clean, build, test, and demo a few cursed modes"
+	@echo "  make debug     - Build with sanitizers"
+	@echo "  make profile   - Time the cursed binary and try valgrind if present"
 	@echo "  make help      - Display this forbidden knowledge"
 	@echo ""
 	@echo "WARNING: This code contains:"
 	@echo "  - Trigraph sorcery that would make demons weep"
 	@echo "  - Macro expansion from the ninth circle of hell"
-	@echo "  - Seven different methods of cursed output"
-	@echo "  - Enough obfuscation to traumatize compilers"
+	@echo "  - Output that is intentionally weird, not reliable"
 	@echo ""
-	@echo "Expected output: Hello World! (or variations thereof)"
-	@echo "Side effects: Existential dread, loss of faith in humanity"
+	@echo "Expected output: Hello World! (or a cursed mutation thereof)"
 	@echo "==================================================================="
 
-.PHONY: all hell build run summon banish clean purge help test bench debug profile
+.PHONY: all build run summon test bench hell banish clean debug profile purge help

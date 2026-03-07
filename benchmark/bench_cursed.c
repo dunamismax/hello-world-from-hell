@@ -6,6 +6,10 @@
 #include <sys/time.h>
 #include <sys/wait.h>
 
+#ifndef TARGET_BINARY
+#define TARGET_BINARY "./build/cursed_spawn"
+#endif
+
 #define BENCHMARK_ITERATIONS 1000
 #define WARMUP_ITERATIONS 100
 
@@ -22,7 +26,7 @@ static void benchmark_function(const char* name, const char* args, int iteration
     // Warmup
     for (int i = 0; i < WARMUP_ITERATIONS; i++) {
         char command[512];
-        snprintf(command, sizeof(command), "./cursed_spawn %s >/dev/null 2>&1", args ? args : "");
+        snprintf(command, sizeof(command), "%s %s >/dev/null 2>&1", TARGET_BINARY, args ? args : "");
         system(command);
     }
     
@@ -31,7 +35,7 @@ static void benchmark_function(const char* name, const char* args, int iteration
     
     for (int i = 0; i < iterations; i++) {
         char command[512];
-        snprintf(command, sizeof(command), "./cursed_spawn %s >/dev/null 2>&1", args ? args : "");
+        snprintf(command, sizeof(command), "%s %s >/dev/null 2>&1", TARGET_BINARY, args ? args : "");
         system(command);
     }
     
@@ -50,7 +54,14 @@ static void benchmark_memory_usage(void) {
     printf("Memory Usage Analysis\n");
     
     // Use time command to get memory stats
-    system("echo '  Peak memory usage:' && time -l ./cursed_spawn >/dev/null 2>&1 | grep 'maximum resident set size' || echo '  Memory profiling not available on this system'");
+    {
+        char command[1024];
+        snprintf(command,
+                 sizeof(command),
+                 "echo '  Peak memory usage:' && time -l %s >/dev/null 2>&1 | grep 'maximum resident set size' || echo '  Memory profiling not available on this system'",
+                 TARGET_BINARY);
+        system(command);
+    }
     printf("\n");
 }
 
@@ -68,7 +79,7 @@ static void benchmark_all_dimensions(void) {
         
         double start = get_time_ms();
         char command[512];
-        snprintf(command, sizeof(command), "./cursed_spawn %s >/dev/null 2>&1", args);
+        snprintf(command, sizeof(command), "%s %s >/dev/null 2>&1", TARGET_BINARY, args);
         system(command);
         double end = get_time_ms();
         
@@ -89,7 +100,7 @@ static void benchmark_scalability(void) {
         
         double start = get_time_ms();
         char command[512];
-        snprintf(command, sizeof(command), "./cursed_spawn %s >/dev/null 2>&1", args);
+        snprintf(command, sizeof(command), "%s %s >/dev/null 2>&1", TARGET_BINARY, args);
         system(command);
         double end = get_time_ms();
         
@@ -105,19 +116,31 @@ static void benchmark_concurrency(void) {
     
     // Test parallel mode
     double start = get_time_ms();
-    system("./cursed_spawn -t >/dev/null 2>&1");
+    {
+        char command[512];
+        snprintf(command, sizeof(command), "%s -t >/dev/null 2>&1", TARGET_BINARY);
+        system(command);
+    }
     double end = get_time_ms();
     printf("  Parallel mode: %.3f ms\n", end - start);
     
     // Test quantum mode
     start = get_time_ms();
-    system("./cursed_spawn -q >/dev/null 2>&1");
+    {
+        char command[512];
+        snprintf(command, sizeof(command), "%s -q >/dev/null 2>&1", TARGET_BINARY);
+        system(command);
+    }
     end = get_time_ms();
     printf("  Quantum mode: %.3f ms\n", end - start);
     
     // Test SIMD mode
     start = get_time_ms();
-    system("./cursed_spawn -s >/dev/null 2>&1");
+    {
+        char command[512];
+        snprintf(command, sizeof(command), "%s -s >/dev/null 2>&1", TARGET_BINARY);
+        system(command);
+    }
     end = get_time_ms();
     printf("  SIMD mode: %.3f ms\n", end - start);
     
@@ -144,8 +167,8 @@ int main(void) {
     printf("=========================================\n\n");
     
     // Check if binary exists
-    if (access("./cursed_spawn", X_OK) != 0) {
-        printf("Error: cursed_spawn binary not found. Run 'make' first.\n");
+    if (access(TARGET_BINARY, X_OK) != 0) {
+        printf("Error: %s not found. Run 'make build' first.\n", TARGET_BINARY);
         return 1;
     }
     

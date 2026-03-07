@@ -2,145 +2,87 @@
   <img src="assets/images/hello-world-from-hell.png" alt="Hello World From Hell PNG" width="400" />
 </p>
 
-_The most cursed, unholy, and beautifully twisted Hello World program ever written in C_
+_A novelty C repo whose entire purpose is to do "Hello World" the wrong way on purpose._
 
-> **Pro tip:** Check the line count of `cursed.c` for a delightfully evil surprise
+This repository is a joke, a code-reading dare, and a mildly irresponsible trigraph exhibit. It is not a serious systems project, not a trustworthy benchmark suite, and not a model of robust C design.
 
-[![Compile Status](https://img.shields.io/badge/compile-succesfully%20cursed-red.svg)](https://github.com/dunamismax/hello-world-from-hell)
-[![Portability](https://img.shields.io/badge/runs%20on-your%20nightmares-darkred.svg)](https://github.com/dunamismax/hello-world-from-hell)
-[![Code Quality](https://img.shields.io/badge/code%20quality-eldritch%20horror-black.svg)](https://github.com/dunamismax/hello-world-from-hell)
+## What It Actually Is
 
----
+`cursed.c` is an intentionally overcooked program that produces Hello-World-ish output through:
 
-## What Fresh Hell Is This?
+- trigraphs
+- macro abuse
+- awkward control flow
+- threading
+- SIMD detours
+- unnecessary math
 
-This repository contains a Hello World program that demonstrates advanced C programming techniques through intentional obfuscation. It summons "Hello World!" through eleven different dimensions of cursed sorcery, each more twisted than the last.
+The result is supposed to be entertainingly bad, not precise, portable in every environment, or operationally meaningful.
 
-## The Cursed Arsenal
+## What It Is Not
 
-**Trigraph Witchcraft**: Extensive use of `??<` `??>` `??!` because normal brackets are for the weak and unenlightened.
+- Not a production artifact
+- Not a reliable portability test
+- Not a serious performance benchmark
+- Not an example of how to structure C code
+- Not guaranteed to print the same clean `Hello World!` every time
 
-**Macro Demonology**: Over 30 macros with names like `CHAOS`, `CURSE`, `RITUAL`, `SUMMON`, and `PHANTOM` that twist reality itself.
-
-**Eleven Circles of Hell**: Each execution randomly selects one of eleven ways to torture your terminal:
-
-- Dimensional shift with union bit manipulation
-- Fibonacci sequence obfuscation  
-- Duff's device horror with unrolled loops
-- Trigraph nightmare fuel
-- Signal handler mayhem
-- Recursive descent into madness
-- Pointer arithmetic insanity
-- Macro expansion hell
-- Quantum entanglement with complex mathematics
-- Parallel dimension chaos with threading
-- SIMD vectorized torment
-
-**Advanced Features**:
-
-- Cross-platform SIMD support (AVX2/NEON)
-- Atomic operations and threading
-- Complex number mathematics
-- Multi-dimensional parallel processing
-
-## Summoning Instructions
-
-### The Primary Ritual
+## Build And Run
 
 ```bash
-git clone https://github.com/dunamismax/hello-world-from-hell.git
-cd hello-world-from-hell
-make hell  # The complete ritual
+make build
+./build/cursed_spawn
+./build/cursed_spawn --help
 ```
 
-This will build the binary, run tests, demonstrate all cursed modes, and unleash hell upon your terminal.
-
-### Command Incantations
+Useful targets:
 
 ```bash
-# Basic invocations
-make                    # Forge the cursed binary
-./cursed_spawn         # Execute random hellish dimension
-./cursed_spawn --help  # Display the unholy documentation
-
-# Force specific dimensions of suffering
-./cursed_spawn -d 0    # Dimensional shift
-./cursed_spawn -d 1    # Fibonacci madness
-./cursed_spawn -d 3    # Trigraph nightmare
-
-# Modern cursed features
-./cursed_spawn -q      # Quantum entanglement horror
-./cursed_spawn -s      # SIMD vectorized hell
-./cursed_spawn -t      # Parallel dimension chaos
-
-# Control the madness
-./cursed_spawn -c 42      # Set chaos counter seed
-./cursed_spawn -r 5       # Repeat ritual 5 times
-./cursed_spawn -d 1 -r 3  # Combined parameters
-
-# Development rituals
-make test     # Run comprehensive test suite
-make bench    # Performance benchmarks
-make debug    # Build with sanitizers
-make profile  # Profile execution
+make build     # Build the main binary into ./build/
+make run       # Run the default cursed mode
+make test      # Build the binary and run deterministic smoke tests
+make bench     # Run curiosity-grade benchmarks
+make clean     # Remove generated files under ./build/
+make purge     # Stronger cleanup, only with CONFIRM=YES
+make hell      # Clean, build, test, and demo a few modes
 ```
 
-## Expected Manifestations
+## Tests
 
-Depending on which circle of hell you're visiting, you might see:
+`make test` now builds the real binary first, then runs a small deterministic harness against explicit modes and CLI behavior. The tests intentionally avoid pretending this program is stable in every random or threaded path.
 
-- `Hello World!` (if you're lucky)
-- `oW olleH\n!dlr` (dimensional reversal)
-- `H}elljo BWhorld*!` (fibonacci corruption)
-- Incomprehensible SIMD-corrupted output
-- Quantum-entangled character soup
+They verify things like:
 
-## Why Does This Exist?
+- help and version output
+- exact byte sequences for a few fixed dimensions
+- repeat-count clamping
+- dimension wrapping
+- a non-hanging threaded mode
 
-This serves multiple purposes:
+## Benchmarks
 
-1. **Educational**: Demonstrates advanced C programming techniques
-2. **Compiler Testing**: Pushes trigraph support, macro expansion, and optimization
-3. **Cross-Platform**: Tests SIMD, threading, and atomic operations across architectures
-4. **Performance**: Benchmarks various approaches to the same simple task
+`make bench` exists because the repo would feel incomplete without fake gravitas, but the numbers are for amusement only. They are process-launch-heavy and not rigorous.
 
-## Technical Specifications
+## Cleanup Safety
 
-- **Languages**: C17 with GNU extensions
-- **Architectures**: x86_64, ARM64
-- **Platforms**: macOS, Linux
-- **Test Coverage**: 100% pass rate (17/17 tests)
-- **Performance**: ~300 operations/second across all hellish dimensions
-- **Binary Size**: 52KB of concentrated evil
+`make clean` only removes generated files in `./build/`.
 
-## Hall of Infamy
+`make purge` is gated:
 
-This cursed creation incorporates every forbidden technique:
+```bash
+make purge CONFIRM=YES
+```
 
-- Trigraphs (RIP C23)
-- Flexible array members in unions
-- Constructor/destructor attributes
-- Signal handlers
-- setjmp/longjmp
-- Volatile everything
-- Duff's device
-- Atomic operations
-- Complex numbers
-- SIMD intrinsics
-- Multi-threading
-- Aligned allocations
+That target is still limited to generated files and common local junk. It no longer wipes source directories.
 
-## Contributing
+## Intentionally Retained Absurdity
 
-Found a way to make this even more cursed? Pull requests welcome! Guidelines:
+The repo still keeps the parts that make the joke work:
 
-- If your code doesn't make at least three senior developers weep, it's not cursed enough
-- All new curses must pass the existing test suite
-- Performance regressions will be sacrificed to the compiler gods
-- Documentation must be suitably ominous
+- trigraph-heavy source
+- melodramatic make output
+- cursed mode names
+- bizarre output mutations
+- benchmark theater
 
----
-
-_"Any sufficiently advanced cursed code is indistinguishable from black magic."_
-
-**Disclaimer**: No compilers were permanently harmed in the making of this repository. They were, however, deeply traumatized and may require therapy.
+If you want a normal Hello World, this is the wrong repository.

@@ -7,6 +7,8 @@
 
 # Project-specific cursed binaries
 cursed_spawn
+tests/test_runner
+benchmark/bench_runner
 a.out
 
 # Prerequisites
