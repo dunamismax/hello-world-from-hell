@@ -105,6 +105,8 @@ hell: clean build test
 	@echo "  Dimension 0 (Dimensional shift): $$(./$(INFERNAL_BINARY) -d 0 2>&1 | head -1 | cut -c1-30)..."
 	@echo "  Dimension 1 (Fibonacci madness): $$(./$(INFERNAL_BINARY) -d 1 2>&1 | head -1 | cut -c1-30)..."
 	@echo "  Dimension 3 (Trigraph nightmare): $$(./$(INFERNAL_BINARY) -d 3 2>&1 | head -1 | cut -c1-30)..."
+	@echo "  Dimension 9 (Infernal bureaucracy): $$(./$(INFERNAL_BINARY) -d 9 2>&1 | head -1 | cut -c1-30)..."
+	@echo "  Apocalypse protocol: $$(./$(INFERNAL_BINARY) --apocalypse 2>&1 | head -1 | cut -c1-30)..."
 	@echo ""
 	@echo "Quick performance test (10 iterations)..."
 	@time -p sh -c 'for i in $$(seq 1 10); do ./$(INFERNAL_BINARY) -d 0 >/dev/null 2>&1; done' 2>&1 | grep real

@@ -79,3 +79,18 @@ C tech stack baseline without touching the intentionally cursed source code.
 - [ ] Add a GCC build step to the CI matrix
 - [ ] Add a sanitizer step (`make debug`) to the CI matrix
 - [ ] Keep CI intentionally minimal; do not add dependency managers or complex toolchains
+
+---
+
+## Phase 6: Compliance Collapse Escalation
+
+This phase intentionally touched the cursed source again. The repo graduated from "bad hello world" to "apparently someone gave the abyss a PM, legal, and a steering committee."
+
+- [x] Expose the temporal loop catastrophe as a first-class forced dimension
+- [x] Add an infernal bureaucracy dimension built from macro-generated permit records and qsort-mediated paperwork
+- [x] Add a board meeting from hell dimension so `Hello World!` can survive committee review
+- [x] Add an apocalypse protocol CLI path that chains multiple dimensions into one theatrical ritual
+- [x] Expand the deterministic test harness to cover the new forced dimensions and apocalypse containment
+- [x] Retune the benchmark harness so the upgraded horror still completes in a reasonable amount of time
+- [x] Update README and build notes to describe the new insanity honestly
+- [x] Fix the temporal catastrophe output walk so the repo stays cursed without wandering into accidental garbage reads

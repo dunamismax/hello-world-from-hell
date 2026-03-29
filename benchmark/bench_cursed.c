@@ -10,8 +10,8 @@
 #define TARGET_BINARY "./build/cursed_spawn"
 #endif
 
-#define BENCHMARK_ITERATIONS 1000
-#define WARMUP_ITERATIONS 100
+#define BENCHMARK_ITERATIONS 250
+#define WARMUP_ITERATIONS 25
 
 // Benchmark timing utilities
 static double get_time_ms(void) {
@@ -70,10 +70,11 @@ static void benchmark_all_dimensions(void) {
     
     const char* dimensions[] = {
         "Dimensional Shift", "Fibonacci Madness", "Duff's Device", "Trigraph Nightmare",
-        "Pointer Insanity", "Macro Hell", "setjmp Madness", "Quantum Horror"
+        "Pointer Insanity", "Macro Hell", "setjmp Madness", "Quantum Horror",
+        "Temporal Catastrophe", "Infernal Bureaucracy", "Board Meeting From Hell"
     };
     
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 11; i++) {
         char args[32];
         snprintf(args, sizeof(args), "-d %d", i);
         
@@ -179,7 +180,10 @@ int main(void) {
     benchmark_function("Dimensional shift", "-d 0", BENCHMARK_ITERATIONS);
     benchmark_function("Fibonacci madness", "-d 1", BENCHMARK_ITERATIONS);
     benchmark_function("Trigraph nightmare", "-d 3", BENCHMARK_ITERATIONS);
+    benchmark_function("Infernal bureaucracy", "-d 9", BENCHMARK_ITERATIONS);
+    benchmark_function("Board meeting from hell", "-d 10", BENCHMARK_ITERATIONS / 2);
     benchmark_function("Quantum horror", "-q", BENCHMARK_ITERATIONS / 2);
+    benchmark_function("Apocalypse protocol", "--apocalypse", BENCHMARK_ITERATIONS / 8);
     benchmark_function("Parallel chaos", "-t", BENCHMARK_ITERATIONS / 4);
     
     // Detailed analysis

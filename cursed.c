@@ -75,6 +75,33 @@
 ??=define CURSED_SEMICOLON ;
 ??=define HELLISH_DOT .
 ??=define DEMONIC_COLON :
+??=define INFERNAL_PERMIT_MATRIX(X) \
+    X(FORM_WORLD_O, 7, 'o', "Form O-71: orbital vowel requisition") \
+    X(FORM_L3, 9, 'l', "Form L-93: terminal lateral approval") \
+    X(FORM_H, 0, 'H', "Form H-13: greeting ignition waiver") \
+    X(FORM_SPACE, 5, ' ', "Form SPC-66: licensed ceremonial void") \
+    X(FORM_E, 1, 'e', "Form E-22: vowel manifestation permit") \
+    X(FORM_BANG, 11, '!', "Form EX-99: punctuation detonation order") \
+    X(FORM_L1, 2, 'l', "Form L-41: first lateral compliance stamp") \
+    X(FORM_W, 6, 'W', "Form W-72: consonant escalation request") \
+    X(FORM_D, 10, 'd', "Form D-88: final consonant discharge") \
+    X(FORM_R, 8, 'r', "Form R-77: rotational phoneme variance") \
+    X(FORM_HELLO_O, 4, 'o', "Form O-57: circular vowel notarization") \
+    X(FORM_L2, 3, 'l', "Form L-58: second lateral affidavit") \
+    X(FORM_NEWLINE, 12, '\n', "Form LF-13: newline release to mortal realm")
+??=define BOARD_MEETING_AGENDA(X) \
+    X(QUORUM, "[QUORUM ACKNOWLEDGED BY THE DAMNED]\n") \
+    X(GREETING, "Hello") \
+    X(VOIDSPACE, " ") \
+    X(WORLD, "World") \
+    X(FINALE, "!\n") \
+    X(MOTION, "[MOTION CARRIES. THE PIT APPLAUDS.]\n")
+??=define APOCALYPSE_SCRIPT(X) \
+    X("LEGAL REVIEW OF THE ABYSS", 9) \
+    X("TEMPORAL INCIDENT REPORT", 8) \
+    X("BOARD MEETING FROM HELL", 10) \
+    X("SETJMP INCIDENT REMEDIATION", 6) \
+    X("QUANTUM POSTMORTEM", 7)
 
 /*
 ⢰⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼
@@ -127,6 +154,29 @@ typedef union ??<
     void* void_ptr;
     char bytes??(??)CURSED_SEMICOLON
 ??> CosmicHorror;
+
+typedef struct ??<
+    unsigned approved : 1;
+    unsigned notarized : 1;
+    unsigned caffeinated : 1;
+    unsigned tier : 5;
+    unsigned encoded_order : 8;
+    char glyph;
+    const char *memo;
+??> InfernalPermit;
+
+typedef struct ??<
+    const char *text;
+    unsigned omen;
+??> AgendaLine;
+
+typedef struct ??<
+    const char *label;
+    int dimension;
+??> ApocalypseStage;
+
+typedef void (*InfernalEmitter)(void);
+typedef void (*AgendaEmitter)(void);
 
 typedef enum ??<
     VOID_STATE = -1,
@@ -227,6 +277,100 @@ static int quantum_strlen(const char* s) ??<
     ??>
     return len;
 ??>
+
+static unsigned decode_permit_order(const InfernalPermit *permit) ??<
+    return (unsigned)(permit->encoded_order ^ 0x5AU);
+??>
+
+#define DECLARE_PERMIT_EMITTER(name, ordinal, glyph_value, memo_text) \
+    static void emit_##name(void) ??< \
+        unsigned stamp = (unsigned)(((ordinal) * 17U) ^ (unsigned char)(glyph_value) ^ (unsigned)atomic_load(&chaos_counter)); \
+        if ((glyph_value) != '\n' && (stamp & 0x3U) == 0x3U) ??< \
+            char typo = ((glyph_value) == ' ') ? '_' : (char)((glyph_value) ^ 0x20); \
+            putchar(typo); \
+            putchar(8); \
+        ??> \
+        putchar((glyph_value)); \
+        atomic_fetch_xor(&chaos_counter, (int)((stamp | 1U) & 0xFFU)); \
+    ??>
+#define DECLARE_PERMIT_ENTRY(name, ordinal, glyph_value, memo_text) \
+    { .approved = 1U, .notarized = ((ordinal) & 1U), .caffeinated = (((ordinal) >> 1) & 1U), .tier = (((ordinal) * 7U) + 3U) & 0x1FU, .encoded_order = ((ordinal) ^ 0x5AU), .glyph = (glyph_value), .memo = (memo_text) },
+#define DECLARE_PERMIT_EMITTER_ENTRY(name, ordinal, glyph_value, memo_text) [ordinal] = emit_##name,
+
+INFERNAL_PERMIT_MATRIX(DECLARE_PERMIT_EMITTER)
+
+static const InfernalPermit infernal_permits??(??) = ??<
+    INFERNAL_PERMIT_MATRIX(DECLARE_PERMIT_ENTRY)
+??>;
+
+static InfernalEmitter bureaucracy_emitters??(13??) = ??<
+    INFERNAL_PERMIT_MATRIX(DECLARE_PERMIT_EMITTER_ENTRY)
+??>;
+
+#define DECLARE_AGENDA_EMITTER(name, line_text) \
+    static void emit_agenda_##name(void) ??< \
+        for (const char *p = (line_text); *p; ++p) ??< \
+            putchar(*p); \
+            atomic_fetch_xor(&chaos_counter, (((int)*p << 1) | 1)); \
+        ??> \
+    ??>
+#define DECLARE_AGENDA_ENTRY(name, line_text) { .text = (line_text), .omen = (unsigned)(sizeof(line_text) * 13U) },
+#define DECLARE_AGENDA_EMITTER_ENTRY(name, line_text) emit_agenda_##name,
+#define DECLARE_APOCALYPSE_STAGE(stage_label, stage_dimension) { .label = (stage_label), .dimension = (stage_dimension) },
+
+BOARD_MEETING_AGENDA(DECLARE_AGENDA_EMITTER)
+
+static const AgendaLine board_agenda??(??) = ??<
+    BOARD_MEETING_AGENDA(DECLARE_AGENDA_ENTRY)
+??>;
+
+static AgendaEmitter board_emitters??(6??) = ??<
+    BOARD_MEETING_AGENDA(DECLARE_AGENDA_EMITTER_ENTRY)
+??>;
+
+static const ApocalypseStage apocalypse_stages??(??) = ??<
+    APOCALYPSE_SCRIPT(DECLARE_APOCALYPSE_STAGE)
+??>;
+
+static int compare_infernal_permits(const void *lhs, const void *rhs) ??<
+    const InfernalPermit *left = (const InfernalPermit *)lhs;
+    const InfernalPermit *right = (const InfernalPermit *)rhs;
+    unsigned decoded_left = decode_permit_order(left);
+    unsigned decoded_right = decode_permit_order(right);
+
+    if (decoded_left < decoded_right) return -1;
+    if (decoded_left > decoded_right) return 1;
+    return strcmp(left->memo, right->memo);
+??>
+
+static void infernal_bureaucracy(void) ??<
+    InfernalPermit paperwork??(sizeof(infernal_permits) / sizeof(infernal_permits??(0??))??);
+    memcpy(paperwork, infernal_permits, sizeof(paperwork));
+    qsort(paperwork,
+          sizeof(paperwork) / sizeof(paperwork??(0??)),
+          sizeof(paperwork??(0??)),
+          compare_infernal_permits);
+
+    for (size_t i = 0; i < sizeof(paperwork) / sizeof(paperwork??(0??)); i++) ??<
+        atomic_fetch_add(&chaos_counter,
+                         paperwork??(i??).tier + quantum_strlen(paperwork??(i??).memo));
+        bureaucracy_emitters??(decode_permit_order(&paperwork??(i??))??)();
+    ??>
+??>
+
+static void board_meeting_from_hell(void) ??<
+    size_t agenda_items = sizeof(board_agenda) / sizeof(board_agenda??(0??));
+    unsigned chair_approval = (unsigned)(atomic_load(&chaos_counter) & 0xFF);
+
+    for (size_t i = 0; i < agenda_items; i++) ??<
+        atomic_fetch_add(&chaos_counter, (int)(board_agenda??(i??).omen + chair_approval));
+        board_emitters??(i??)();
+        chair_approval = (chair_approval + board_agenda??(i??).omen + 0x13U) & 0xFFU;
+    ??>
+??>
+
+static void dispatch_dimension(int dimension);
+static void apocalypse_protocol(void);
 
 static void dimensional_shift(void) ??<
     CosmicHorror horror;
@@ -464,9 +608,11 @@ static void quantum_entanglement_horror(void) ??<
 static void temporal_loop_catastrophe(void) ??<
     static int temporal_depth = 0;
     char temporal_msg??(??) = "Hello World!\n";
+    int temporal_len = quantum_strlen(temporal_msg);
+    if (temporal_len < 0) return;
     
     if (temporal_depth > 10) ??<
-        for (int i = 0; temporal_msg??(i??); i++) putchar(temporal_msg??(i??));
+        for (int i = 0; i < temporal_len; i++) putchar(temporal_msg??(i??));
         return;
     ??>
     
@@ -474,7 +620,7 @@ static void temporal_loop_catastrophe(void) ??<
     
     switch (atomic_load(&chaos_counter) % 3) ??<
         case 0:
-            for (int i = strlen(temporal_msg) - 2; i >= 0; i--) ??<
+            for (int i = temporal_len - 2; i >= 0; i--) ??<
                 putchar(temporal_msg??(i??));
             ??>
             break;
@@ -482,15 +628,15 @@ static void temporal_loop_catastrophe(void) ??<
             if (temporal_depth < 8) ??<
                 temporal_loop_catastrophe();
             ??> else ??<
-                for (int i = 0; temporal_msg??(i??); i++) putchar(temporal_msg??(i??));
+                for (int i = 0; i < temporal_len; i++) putchar(temporal_msg??(i??));
             ??>
             break;
         default:
-            for (int i = 0; temporal_msg??(i??); i += 2) ??<
-                if (temporal_msg??(i??)) putchar(temporal_msg??(i??));
+            for (int i = 0; i < temporal_len; i += 2) ??<
+                putchar(temporal_msg??(i??));
             ??>
-            for (int i = 1; temporal_msg??(i??); i += 2) ??<
-                if (temporal_msg??(i??)) putchar(temporal_msg??(i??));
+            for (int i = 1; i < temporal_len; i += 2) ??<
+                putchar(temporal_msg??(i??));
             ??>
     ??>
     
@@ -498,7 +644,10 @@ static void temporal_loop_catastrophe(void) ??<
 ??>
 
 static void ultimate_chaos_fusion(void) ??<
-    int chaos_level = atomic_load(&chaos_counter) % 11;
+    int chaos_level = atomic_load(&chaos_counter);
+    if (chaos_level < 0) chaos_level = -chaos_level;
+    chaos_level %= 14;
+
     switch (chaos_level) ??<
         case 0: dimensional_shift(); break;
         case 1: fibonacci_madness(); break;
@@ -509,12 +658,47 @@ static void ultimate_chaos_fusion(void) ??<
         case 6: setjmp_longjmp_madness(); break;
         case 7: quantum_entanglement_horror(); break;
         case 8: temporal_loop_catastrophe(); break;
+        case 9: infernal_bureaucracy(); break;
+        case 10: board_meeting_from_hell(); break;
 ??=if SIMD_AVAILABLE
-        case 9: simd_hell_unleashed(); break;
+        case 11: simd_hell_unleashed(); break;
+??=else
+        case 11: signal_handler_chaos(); break;
 ??=endif
-        case 10: parallel_dimension_chaos(); break;
+        case 12: parallel_dimension_chaos(); break;
+        case 13: apocalypse_protocol(); break;
         default: signal_handler_chaos(); break;
     ??>
+??>
+
+static void dispatch_dimension(int dimension) ??<
+    switch (dimension) ??<
+        case 0: dimensional_shift(); break;
+        case 1: fibonacci_madness(); break;
+        case 2: duffs_device_horror(); break;
+        case 3: trigraph_nightmare(); break;
+        case 4: pointer_arithmetic_insanity(); break;
+        case 5: macro_expansion_hell(); break;
+        case 6: setjmp_longjmp_madness(); break;
+        case 7: quantum_entanglement_horror(); break;
+        case 8: temporal_loop_catastrophe(); break;
+        case 9: infernal_bureaucracy(); break;
+        case 10: board_meeting_from_hell(); break;
+        default: dimensional_shift(); break;
+    ??>
+??>
+
+static void apocalypse_protocol(void) ??<
+    size_t total_stages = sizeof(apocalypse_stages) / sizeof(apocalypse_stages??(0??));
+
+    printf("=== APOCALYPSE PROTOCOL ENGAGED ===\n");
+    for (size_t i = 0; i < total_stages; i++) ??<
+        printf("--- PHASE %zu/%zu: %s ---\n", i + 1, total_stages, apocalypse_stages??(i??).label);
+        atomic_fetch_add(&chaos_counter, (int)((i + 1) * 13));
+        dispatch_dimension(apocalypse_stages??(i??).dimension);
+        if (i + 1 < total_stages) putchar('\n');
+    ??>
+    printf("=== APOCALYPSE STATUS: GREETING DEPLOYED ===\n");
 ??>
 
 static void print_cursed_help(void) ??<
@@ -522,18 +706,22 @@ static void print_cursed_help(void) ??<
     printf("Usage: ./cursed_spawn [OPTIONS]\n\n");
     printf("OPTIONS:\n");
     printf("  -h, --help           Show this unholy documentation\n");
-    printf("  -d, --dimension N    Force specific hell dimension (0-6)\n");
+    printf("  -d, --dimension N    Force specific hell dimension (0-10)\n");
     printf("  -c, --chaos N        Set initial chaos counter value\n");
     printf("  -r, --repeat N       Repeat the cursed ritual N times\n");
     printf("  -t, --threads        Enable parallel nightmare mode\n");
     printf("  -q, --quantum        Force quantum entanglement horror\n");
     printf("  -s, --simd           Force SIMD hell (if available)\n");
+    printf("  -a, --apocalypse     Run the full compliance-collapse ceremony\n");
     printf("  --version            Show version and exit\n\n");
     printf("DIMENSIONS:\n");
-    printf("  0: Dimensional shift        4: Pointer arithmetic insanity\n");
-    printf("  1: Fibonacci madness        5: Macro expansion hell\n");
-    printf("  2: Duff's device horror     6: setjmp/longjmp madness\n");
-    printf("  3: Trigraph nightmare       7: Quantum entanglement\n\n");
+    printf("  0: Dimensional shift         6: setjmp/longjmp madness\n");
+    printf("  1: Fibonacci madness         7: Quantum entanglement horror\n");
+    printf("  2: Duff's device horror      8: Temporal loop catastrophe\n");
+    printf("  3: Trigraph nightmare        9: Infernal bureaucracy\n");
+    printf("  4: Pointer arithmetic        10: Board meeting from hell\n");
+    printf("  5: Macro expansion hell\n\n");
+    printf("Default mode may now trigger paperwork, temporal failures, or total apocalypse.\n");
     printf("May your terminal survive the cursed output...\n");
 ??>
 
@@ -545,13 +733,14 @@ int main(int argc, char* argv[]) ??<
     bool force_parallel = false;
     bool force_quantum = false;
     bool force_simd = false;
+    bool force_apocalypse = false;
     
     for (int i = 1; i < argc; i++) ??<
         if (strcmp(argv??(i??), "-h") == 0 || strcmp(argv??(i??), "--help") == 0) ??<
             print_cursed_help();
             return 0;
         ??> else if (strcmp(argv??(i??), "--version") == 0) ??<
-            printf("Hello World From Hell v2.0 - Cursed Edition\n");
+            printf("Hello World From Hell v3.0 - Compliance Collapse Edition\n");
             printf("Compiled with %s\n", __VERSION__);
             printf("Architecture: %s\n", 
 ??=ifdef X86_64
@@ -562,6 +751,7 @@ int main(int argc, char* argv[]) ??<
                 "Unknown"
 ??=endif
             );
+            printf("Crisis mode: paperwork, temporal recursion, and board-approved apocalypse\n");
             return 0;
         ??> else if (strcmp(argv??(i??), "-d") == 0 || strcmp(argv??(i??), "--dimension") == 0) ??<
             if (i + 1 < argc) ??<
@@ -583,6 +773,8 @@ int main(int argc, char* argv[]) ??<
             force_quantum = true;
         ??> else if (strcmp(argv??(i??), "-s") == 0 || strcmp(argv??(i??), "--simd") == 0) ??<
             force_simd = true;
+        ??> else if (strcmp(argv??(i??), "-a") == 0 || strcmp(argv??(i??), "--apocalypse") == 0) ??<
+            force_apocalypse = true;
         ??>
     ??>
 
@@ -608,17 +800,12 @@ int main(int argc, char* argv[]) ??<
         ??> else if (force_simd) ??<
             simd_hell_unleashed();
 ??=endif
+        ??> else if (force_apocalypse) ??<
+            apocalypse_protocol();
         ??> else if (forced_dimension >= 0) ??<
-            switch (forced_dimension % 8) ??<
-                case 0: dimensional_shift(); break;
-                case 1: fibonacci_madness(); break;
-                case 2: duffs_device_horror(); break;
-                case 3: trigraph_nightmare(); break;
-                case 4: pointer_arithmetic_insanity(); break;
-                case 5: macro_expansion_hell(); break;
-                case 6: setjmp_longjmp_madness(); break;
-                case 7: quantum_entanglement_horror(); break;
-            ??>
+            int resolved_dimension = forced_dimension % 11;
+            if (resolved_dimension < 0) resolved_dimension += 11;
+            dispatch_dimension(resolved_dimension);
         ??> else ??<
             current_dimension = (DimensionType)(rand() % 7);
             switch (current_dimension) ??<

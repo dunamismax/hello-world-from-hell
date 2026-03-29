@@ -196,8 +196,17 @@ int main(void) {
         "oW olleH\n!dlr\n"
         "=== RITUAL 2/2 ===\n"
         "oW olleH\n!dlr";
+    static const unsigned char dimension_eight_output[] = "Hello World!\n";
+    static const unsigned char dimension_nine_output[] = {
+        0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f, 0x52, 0x08,
+        0x72, 0x6c, 0x64, 0x21, 0x0a,
+    };
+    static const unsigned char dimension_ten_output[] =
+        "[QUORUM ACKNOWLEDGED BY THE DAMNED]\n"
+        "Hello World!\n"
+        "[MOTION CARRIES. THE PIT APPLAUDS.]\n";
     static const unsigned char help_prefix[] = "CURSED HELLO WORLD FROM THE DEPTHS OF PROGRAMMING HELL";
-    static const unsigned char version_prefix[] = "Hello World From Hell v2.0 - Cursed Edition";
+    static const unsigned char version_prefix[] = "Hello World From Hell v3.0 - Compliance Collapse Edition";
     static const unsigned char dimension_three_prefix[] = "Hello World!\n";
 
     printf("Starting Cursed Test Suite...\n");
@@ -209,6 +218,8 @@ int main(void) {
                      result.exit_code == 0 &&
                      output_contains(&result, (const char *)help_prefix) &&
                      output_contains(&result, "Usage: ./cursed_spawn [OPTIONS]") &&
+                     output_contains(&result, "--apocalypse") &&
+                     output_contains(&result, "Infernal bureaucracy") &&
                      output_contains(&result, "DIMENSIONS:");
         report_result("Help output is available", passed, &tests_run, &tests_passed);
     }
@@ -219,7 +230,8 @@ int main(void) {
                      !result.timed_out &&
                      result.exit_code == 0 &&
                      output_contains(&result, (const char *)version_prefix) &&
-                     output_contains(&result, "Architecture:");
+                     output_contains(&result, "Architecture:") &&
+                     output_contains(&result, "Crisis mode:");
         report_result("Version output is available", passed, &tests_run, &tests_passed);
     }
 
@@ -266,7 +278,7 @@ int main(void) {
     }
 
     {
-        char *const argv[] = {TARGET_BINARY, "-d", "8", NULL};
+        char *const argv[] = {TARGET_BINARY, "-d", "11", NULL};
         int passed = run_command(argv, &result) == 0 &&
                      !result.timed_out &&
                      result.exit_code >= 0 &&
@@ -303,6 +315,49 @@ int main(void) {
                      result.exit_code < 128 &&
                      output_equals(&result, quantum_output, sizeof(quantum_output));
         report_result("Quantum mode remains deterministic enough to test", passed, &tests_run, &tests_passed);
+    }
+
+    {
+        char *const argv[] = {TARGET_BINARY, "-d", "8", NULL};
+        int passed = run_command(argv, &result) == 0 &&
+                     !result.timed_out &&
+                     result.exit_code >= 0 &&
+                     result.exit_code < 128 &&
+                     output_equals(&result, dimension_eight_output, sizeof(dimension_eight_output) - 1);
+        report_result("Temporal catastrophe stays deterministic when forced", passed, &tests_run, &tests_passed);
+    }
+
+    {
+        char *const argv[] = {TARGET_BINARY, "-d", "9", NULL};
+        int passed = run_command(argv, &result) == 0 &&
+                     !result.timed_out &&
+                     result.exit_code >= 0 &&
+                     result.exit_code < 128 &&
+                     output_equals(&result, dimension_nine_output, sizeof(dimension_nine_output));
+        report_result("Infernal bureaucracy remains gloriously reproducible", passed, &tests_run, &tests_passed);
+    }
+
+    {
+        char *const argv[] = {TARGET_BINARY, "-d", "10", NULL};
+        int passed = run_command(argv, &result) == 0 &&
+                     !result.timed_out &&
+                     result.exit_code >= 0 &&
+                     result.exit_code < 128 &&
+                     output_equals(&result, dimension_ten_output, sizeof(dimension_ten_output) - 1);
+        report_result("Board meeting from hell still reaches quorum", passed, &tests_run, &tests_passed);
+    }
+
+    {
+        char *const argv[] = {TARGET_BINARY, "--apocalypse", NULL};
+        int passed = run_command(argv, &result) == 0 &&
+                     !result.timed_out &&
+                     result.exit_code >= 0 &&
+                     result.exit_code < 128 &&
+                     output_contains(&result, "=== APOCALYPSE PROTOCOL ENGAGED ===") &&
+                     output_contains(&result, "LEGAL REVIEW OF THE ABYSS") &&
+                     output_contains(&result, "BOARD MEETING FROM HELL") &&
+                     output_contains(&result, "=== APOCALYPSE STATUS: GREETING DEPLOYED ===");
+        report_result("Apocalypse protocol stays theatrically contained", passed, &tests_run, &tests_passed);
     }
 
     {
