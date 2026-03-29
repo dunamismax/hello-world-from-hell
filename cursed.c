@@ -740,7 +740,7 @@ int main(int argc, char* argv[]) ??<
             print_cursed_help();
             return 0;
         ??> else if (strcmp(argv??(i??), "--version") == 0) ??<
-            printf("Hello World From Hell v3.0 - Compliance Collapse Edition\n");
+            printf("Hello World From Hell v3.0.0 - Compliance Collapse Edition\n");
             printf("Compiled with %s\n", __VERSION__);
             printf("Architecture: %s\n", 
 ??=ifdef X86_64

@@ -123,7 +123,7 @@ banish:
 
 clean: banish
 
-debug:
+debug: clean
 	@echo "Building debug version with sanitizers..."
 	$(MAKE) DEBUG=1 build
 

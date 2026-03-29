@@ -206,7 +206,7 @@ int main(void) {
         "Hello World!\n"
         "[MOTION CARRIES. THE PIT APPLAUDS.]\n";
     static const unsigned char help_prefix[] = "CURSED HELLO WORLD FROM THE DEPTHS OF PROGRAMMING HELL";
-    static const unsigned char version_prefix[] = "Hello World From Hell v3.0 - Compliance Collapse Edition";
+    static const unsigned char version_prefix[] = "Hello World From Hell v3.0.0 - Compliance Collapse Edition";
     static const unsigned char dimension_three_prefix[] = "Hello World!\n";
 
     printf("Starting Cursed Test Suite...\n");
