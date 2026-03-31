@@ -1,0 +1,74 @@
+name: ci
+
+'on':
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    name: build-test (${{ matrix.label }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            label: ubuntu-clang
+            cc: clang
+          - os: ubuntu-latest
+            label: ubuntu-gcc
+            cc: gcc
+          - os: macos-latest
+            label: macos-clang
+            cc: clang
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Ensure Clang is available on Ubuntu
+        if: runner.os == 'Linux' && matrix.cc == 'clang'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang
+
+      - name: Show compiler version
+        run: ${{ matrix.cc }} --version
+
+      - name: Build and test
+        run: |
+          make clean
+          make build test CC=${{ matrix.cc }}
+
+  sanitizers:
+    name: sanitizers (${{ matrix.label }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            label: ubuntu-clang
+          - os: macos-latest
+            label: macos-clang
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Ensure Clang is available on Ubuntu
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang
+
+      - name: Show compiler version
+        run: clang --version
+
+      - name: ASan + UBSan
+        run: make debug CC=clang
+
+      - name: ThreadSanitizer
+        run: make tsan CC=clang

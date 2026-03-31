@@ -144,10 +144,6 @@ static _Alignas(64) volatile char quantum_buffer??(4096??);
 static _Complex double eldritch_frequency = 6.66 + 13.37I;
 static atomic_flag reality_lock = ATOMIC_FLAG_INIT;
 
-typedef struct ??<
-    _Alignas(32) unsigned char data??(??);
-??> CursedMessage;
-
 typedef union ??<
     long long quantum;
     double reality;
@@ -426,26 +422,27 @@ static void duffs_device_horror(void) ??<
 ??>
 
 static void trigraph_nightmare(void) ??<
-    static CursedMessage const abomination = ??<
-        .data = ??<
-            HEXIFY('H'), HEXIFY('e'), HEXIFY('l'), HEXIFY('l'), HEXIFY('o'),
-            HEXIFY(' '), HEXIFY('W'), HEXIFY('o'), HEXIFY('r'), HEXIFY('l'),
-            HEXIFY('d'), HEXIFY('!'), HEXIFY('\n'), HEXIFY('\0')
-        ??>
+    static const unsigned char abomination??(??) = ??<
+        HEXIFY('H'), HEXIFY('e'), HEXIFY('l'), HEXIFY('l'), HEXIFY('o'),
+        HEXIFY(' '), HEXIFY('W'), HEXIFY('o'), HEXIFY('r'), HEXIFY('l'),
+        HEXIFY('d'), HEXIFY('!'), HEXIFY('\n'), HEXIFY('\0')
     ??>;
+    const size_t abomination_len = sizeof(abomination) / sizeof(abomination??(0??));
 
-    for (const unsigned char *p = abomination.data; *p; p++) ??<
+    for (size_t i = 0; i < abomination_len; ++i) ??<
+        const unsigned char glyph = abomination??(i??);
+
         switch (chaos_counter % 4) ??<
-            case 0: QUANTUM_WRITE(*p); break;
-            case 1: QUANTUM_WRITE(*p); break;
+            case 0: QUANTUM_WRITE(glyph); break;
+            case 1: QUANTUM_WRITE(glyph); break;
             case 2: ??<
-                volatile unsigned char temp = *p;
+                volatile unsigned char temp = glyph;
                 QUANTUM_WRITE(temp);
                 break;
             ??>
             default: ??<
                 if (PORTAL(reality) == 0) ??<
-                    QUANTUM_WRITE(*p);
+                    QUANTUM_WRITE(glyph);
                     chaos_counter++;
                     if (chaos_counter > 100) WORMHOLE(reality EVIL_COMMA 1);
                 ??> else ??<
@@ -453,7 +450,7 @@ static void trigraph_nightmare(void) ??<
                 ??>
             ??>
         ??>
-        chaos_counter = CURSE(chaos_counter, *p);
+        chaos_counter = CURSE(chaos_counter, glyph);
     ??>
 ??>
 

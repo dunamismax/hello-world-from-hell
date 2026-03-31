@@ -58,15 +58,22 @@ make build
 Useful targets:
 
 ```bash
-make build     # Build the main binary into ./build/
-make run       # Run the default cursed mode
-make test      # Build the binary and run deterministic smoke tests
-make bench     # Run curiosity-grade benchmarks
-make debug     # Build with ASan + UBSan
-make clean     # Remove generated files under ./build/
-make purge     # Stronger cleanup, only with CONFIRM=YES
-make hell      # Clean, build, test, and demo several cursed modes
+make build                     # Build the main binary into ./build/
+make run                       # Run the default cursed mode
+make test                      # Build the binary and run deterministic smoke tests
+make bench                     # Run curiosity-grade benchmarks
+make debug                     # Build and test with ASan + UBSan
+make tsan                      # Build and test with ThreadSanitizer
+make gcc-check                 # Cross-check build + tests with GCC
+make gcc-check GCC=gcc-15      # macOS/Homebrew GCC example
+make clean                     # Remove generated files under ./build/
+make purge CONFIRM=YES         # Stronger cleanup, only with confirmation
+make hell                      # Clean, build, test, and demo several cursed modes
 ```
+
+`make debug` and `make tsan` are the sanitizer entry points for the repo.
+
+`make gcc-check` is the boring portability spot-check. On Linux, the default `GCC=gcc` should be fine. On macOS, `/usr/bin/gcc` is usually Apple Clang wearing a fake mustache, so pass your Homebrew binary explicitly, such as `GCC=gcc-15`.
 
 ## Interesting CLI Modes
 
@@ -104,6 +111,18 @@ The tests do **not** pretend the repo is universally deterministic. They only pi
 The benchmark harness is intentionally lightweight, still process-launch-heavy, and still not rigorous. It now includes the newer derangements such as infernal bureaucracy, board meeting from hell, and apocalypse protocol.
 
 Use the numbers for amusement, not engineering decisions.
+
+## CI And Tooling Stance
+
+GitHub Actions runs the boring checks that actually matter here:
+
+- build + test on Ubuntu and macOS
+- a Linux GCC cross-check
+- sanitizer passes through `make debug` and `make tsan`
+
+That is enough discipline for a joke repo with real C footguns.
+
+The repo intentionally does **not** grow a large tooling bureaucracy around the joke. For now there is no `clang-tidy`, `scan-build`, or compile-database pipeline checked in. If the repo somehow becomes maintenance-heavy later, that can change then instead of pretending now.
 
 ## Cleanup Safety
 

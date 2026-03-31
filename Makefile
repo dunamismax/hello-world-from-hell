@@ -5,6 +5,8 @@
 
 CC ?= clang
 DEBUG ?= 0
+TSAN ?= 0
+GCC ?= gcc
 BUILD_DIR ?= build
 
 CURSED_SOURCE := cursed.c
@@ -18,13 +20,22 @@ TARGET_BINARY_PATH := $(abspath $(INFERNAL_BINARY))
 
 UNAME_S := $(shell uname -s)
 UNAME_M := $(shell uname -m)
+CC_VERSION_LINE := $(shell $(CC) --version 2>/dev/null | head -n 1)
+
+ifneq ($(findstring gcc,$(CC_VERSION_LINE))$(findstring GCC,$(CC_VERSION_LINE)),)
+TRIGRAPH_FLAG := -trigraphs
+else
+TRIGRAPH_FLAG := -ftrigraphs
+endif
 
 OPTIMS := -O3 -march=native -flto -funroll-loops
 DEBUG_FLAGS := -O0 -g3 -fsanitize=address,undefined -fno-omit-frame-pointer
 SANITIZER_FLAGS := -fsanitize=address,undefined
-UNHOLY_WARNINGS := -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes
+TSAN_FLAGS := -O1 -g -fsanitize=thread -fno-omit-frame-pointer
+TSAN_LDFLAGS := -fsanitize=thread
+UNHOLY_WARNINGS := -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes
 UNHOLY_WARNINGS += -Wno-duplicate-decl-specifier -Wno-trigraphs -Wvla -Wformat=2
-UTILITY_WARNINGS := -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes
+UTILITY_WARNINGS := -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes
 
 ifeq ($(UNAME_S),Darwin)
 	OS_FLAGS := -DMACOS
@@ -45,8 +56,19 @@ else
 	ARCH_FLAGS := -DUNKNOWN_ARCH
 endif
 
-CURSED_CFLAGS := $(if $(filter 1,$(DEBUG)),$(DEBUG_FLAGS),$(OPTIMS)) $(UNHOLY_WARNINGS) -ftrigraphs -std=c17 $(OS_FLAGS) $(ARCH_FLAGS) $(THREAD_FLAGS)
-CURSED_LDFLAGS := $(if $(filter 1,$(DEBUG)),$(SANITIZER_FLAGS),$(OPTIMS))
+ifeq ($(DEBUG),1)
+	MODE_CFLAGS := $(DEBUG_FLAGS)
+	MODE_LDFLAGS := $(SANITIZER_FLAGS)
+else ifeq ($(TSAN),1)
+	MODE_CFLAGS := $(TSAN_FLAGS)
+	MODE_LDFLAGS := $(TSAN_LDFLAGS)
+else
+	MODE_CFLAGS := $(OPTIMS)
+	MODE_LDFLAGS := $(OPTIMS)
+endif
+
+CURSED_CFLAGS := $(MODE_CFLAGS) $(UNHOLY_WARNINGS) $(TRIGRAPH_FLAG) -std=c17 $(OS_FLAGS) $(ARCH_FLAGS) $(THREAD_FLAGS)
+CURSED_LDFLAGS := $(MODE_LDFLAGS)
 CURSED_LDLIBS := -lm $(THREAD_FLAGS)
 UTILITY_CFLAGS := $(if $(filter 1,$(DEBUG)),-O0 -g3,-O2) $(UTILITY_WARNINGS) -std=c17 -D_POSIX_C_SOURCE=200809L
 
@@ -123,9 +145,17 @@ banish:
 
 clean: banish
 
-debug: clean
-	@echo "Building debug version with sanitizers..."
-	$(MAKE) DEBUG=1 build
+debug:
+	@echo "Building and testing with ASan + UBSan..."
+	$(MAKE) DEBUG=1 clean test
+
+tsan:
+	@echo "Building and testing with ThreadSanitizer..."
+	$(MAKE) TSAN=1 clean test
+
+gcc-check:
+	@echo "Cross-checking the cursed build with $(GCC)..."
+	$(MAKE) CC="$(GCC)" clean build test
 
 profile: $(INFERNAL_BINARY)
 	@echo "Profiling the cursed execution..."
@@ -160,7 +190,9 @@ help:
 	@echo ""
 	@echo "Advanced Dark Arts:"
 	@echo "  make hell      - Clean, build, test, and demo a few cursed modes"
-	@echo "  make debug     - Build with sanitizers"
+	@echo "  make debug     - Build and test with ASan + UBSan"
+	@echo "  make tsan      - Build and test with ThreadSanitizer"
+	@echo "  make gcc-check - Cross-check build and tests with GCC (override GCC=... if needed)"
 	@echo "  make profile   - Time the cursed binary and try valgrind if present"
 	@echo "  make help      - Display this forbidden knowledge"
 	@echo ""
@@ -172,4 +204,4 @@ help:
 	@echo "Expected output: Hello World! (or a cursed mutation thereof)"
 	@echo "==================================================================="
 
-.PHONY: all build run summon test bench hell banish clean debug profile purge help
+.PHONY: all build run summon test bench hell banish clean debug tsan gcc-check profile purge help
